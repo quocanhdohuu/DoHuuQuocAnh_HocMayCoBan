@@ -1,0 +1,18 @@
+# Core Machine Learning & Data Processing
+numpy>=1.26.0
+pandas>=2.1.0
+scikit-learn>=1.4.0
+joblib>=1.3.0
+
+# Visualization & Experiment Tracking
+matplotlib>=3.8.0
+seaborn>=0.13.0
+
+# Backend Serving & API
+fastapi>=0.109.0
+uvicorn[standard]>=0.27.0
+pydantic>=2.6.0
+
+# Testing & Utilities
+pytest>=8.0.0
+httpx>=0.26.0
