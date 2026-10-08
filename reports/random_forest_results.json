@@ -1,0 +1,248 @@
+{
+  "pipeline_name": "RandomForestClassifier_Tuning",
+  "status": "candidate_model_evaluated",
+  "is_final_selected_model": false,
+  "note": "Mô hình ứng viên, chưa kết luận mô hình cuối cùng cho đến khi hoàn thành các thí nghiệm bắt buộc.",
+  "random_state": 42,
+  "grid_search_total_time_seconds": 38.83,
+  "best_params": {
+    "n_estimators": 100,
+    "max_depth": 8,
+    "min_samples_leaf": 1,
+    "max_features": 0.3
+  },
+  "cv_performance_at_best_params": {
+    "mean_recall": 0.925057471264368,
+    "std_recall": 0.040770748466345486,
+    "mean_precision": 0.9268582375478926,
+    "mean_f1": 0.9236990595611285,
+    "mean_accuracy": 0.9421518987341772,
+    "mean_roc_auc": 0.9820367816091954
+  },
+  "top_10_parameter_combinations": [
+    {
+      "n_estimators": 100,
+      "max_depth": 8,
+      "min_samples_leaf": 1,
+      "max_features": 0.3,
+      "cv_mean_recall": 0.9251,
+      "cv_std_recall": 0.0408,
+      "cv_mean_precision": 0.9269,
+      "cv_mean_f1": 0.9237,
+      "cv_mean_accuracy": 0.9422,
+      "cv_mean_roc_auc": 0.982
+    },
+    {
+      "n_estimators": 200,
+      "max_depth": 8,
+      "min_samples_leaf": 1,
+      "max_features": 0.3,
+      "cv_mean_recall": 0.9251,
+      "cv_std_recall": 0.0408,
+      "cv_mean_precision": 0.9269,
+      "cv_mean_f1": 0.9237,
+      "cv_mean_accuracy": 0.9422,
+      "cv_mean_roc_auc": 0.9819
+    },
+    {
+      "n_estimators": 100,
+      "max_depth": null,
+      "min_samples_leaf": 1,
+      "max_features": 0.3,
+      "cv_mean_recall": 0.9251,
+      "cv_std_recall": 0.0408,
+      "cv_mean_precision": 0.9269,
+      "cv_mean_f1": 0.9237,
+      "cv_mean_accuracy": 0.9422,
+      "cv_mean_roc_auc": 0.9818
+    },
+    {
+      "n_estimators": 200,
+      "max_depth": null,
+      "min_samples_leaf": 1,
+      "max_features": 0.3,
+      "cv_mean_recall": 0.9251,
+      "cv_std_recall": 0.0408,
+      "cv_mean_precision": 0.9269,
+      "cv_mean_f1": 0.9237,
+      "cv_mean_accuracy": 0.9422,
+      "cv_mean_roc_auc": 0.9816
+    },
+    {
+      "n_estimators": 50,
+      "max_depth": 4,
+      "min_samples_leaf": 1,
+      "max_features": "sqrt",
+      "cv_mean_recall": 0.9251,
+      "cv_std_recall": 0.0592,
+      "cv_mean_precision": 0.9373,
+      "cv_mean_f1": 0.9288,
+      "cv_mean_accuracy": 0.9472,
+      "cv_mean_roc_auc": 0.9865
+    },
+    {
+      "n_estimators": 50,
+      "max_depth": 8,
+      "min_samples_leaf": 1,
+      "max_features": 0.3,
+      "cv_mean_recall": 0.9248,
+      "cv_std_recall": 0.0595,
+      "cv_mean_precision": 0.9446,
+      "cv_mean_f1": 0.9319,
+      "cv_mean_accuracy": 0.9497,
+      "cv_mean_roc_auc": 0.9815
+    },
+    {
+      "n_estimators": 50,
+      "max_depth": null,
+      "min_samples_leaf": 1,
+      "max_features": 0.3,
+      "cv_mean_recall": 0.9248,
+      "cv_std_recall": 0.0595,
+      "cv_mean_precision": 0.9446,
+      "cv_mean_f1": 0.9319,
+      "cv_mean_accuracy": 0.9497,
+      "cv_mean_roc_auc": 0.9814
+    },
+    {
+      "n_estimators": 50,
+      "max_depth": 6,
+      "min_samples_leaf": 2,
+      "max_features": 0.3,
+      "cv_mean_recall": 0.9248,
+      "cv_std_recall": 0.0595,
+      "cv_mean_precision": 0.9314,
+      "cv_mean_f1": 0.9258,
+      "cv_mean_accuracy": 0.9446,
+      "cv_mean_roc_auc": 0.981
+    },
+    {
+      "n_estimators": 200,
+      "max_depth": null,
+      "min_samples_leaf": 4,
+      "max_features": "sqrt",
+      "cv_mean_recall": 0.9248,
+      "cv_std_recall": 0.0595,
+      "cv_mean_precision": 0.9259,
+      "cv_mean_f1": 0.9227,
+      "cv_mean_accuracy": 0.9421,
+      "cv_mean_roc_auc": 0.9856
+    },
+    {
+      "n_estimators": 200,
+      "max_depth": 8,
+      "min_samples_leaf": 4,
+      "max_features": "sqrt",
+      "cv_mean_recall": 0.9248,
+      "cv_std_recall": 0.0595,
+      "cv_mean_precision": 0.9259,
+      "cv_mean_f1": 0.9227,
+      "cv_mean_accuracy": 0.9421,
+      "cv_mean_roc_auc": 0.9856
+    }
+  ],
+  "ensemble_properties": {
+    "n_estimators": 100,
+    "max_features": 0.3,
+    "max_depth_param": 8,
+    "min_samples_leaf": 1,
+    "average_tree_depth": 6.83,
+    "max_tree_depth": 8,
+    "min_tree_depth": 5,
+    "average_leaf_count": 15.28,
+    "training_time_seconds": 0.05
+  },
+  "train_metrics": {
+    "accuracy": 1.0,
+    "precision_malignant": 1.0,
+    "recall_malignant": 1.0,
+    "f1_malignant": 1.0,
+    "roc_auc": 1.0,
+    "confusion_matrix": {
+      "matrix": [
+        [
+          250,
+          0
+        ],
+        [
+          0,
+          148
+        ]
+      ],
+      "tn": 250,
+      "fp": 0,
+      "fn": 0,
+      "tp": 148
+    }
+  },
+  "validation_metrics": {
+    "accuracy": 0.9647,
+    "precision_malignant": 1.0,
+    "recall_malignant": 0.9062,
+    "f1_malignant": 0.9508,
+    "roc_auc": 0.9941,
+    "confusion_matrix": {
+      "matrix": [
+        [
+          53,
+          0
+        ],
+        [
+          3,
+          29
+        ]
+      ],
+      "tn": 53,
+      "fp": 0,
+      "fn": 3,
+      "tp": 29
+    }
+  },
+  "generalization_gap": {
+    "accuracy_gap_pct": 3.53,
+    "recall_gap_pct": 9.38,
+    "f1_gap_pct": 4.92
+  },
+  "comparison_with_pruned_tree": {
+    "pruned_tree_available": true,
+    "validation_metric_deltas": {
+      "accuracy": {
+        "pruned_tree": 0.8706,
+        "random_forest": 0.9647,
+        "delta": 0.0941
+      },
+      "precision_malignant": {
+        "pruned_tree": 0.92,
+        "random_forest": 1.0,
+        "delta": 0.08
+      },
+      "recall_malignant": {
+        "pruned_tree": 0.7188,
+        "random_forest": 0.9062,
+        "delta": 0.1874
+      },
+      "f1_malignant": {
+        "pruned_tree": 0.807,
+        "random_forest": 0.9508,
+        "delta": 0.1438
+      },
+      "roc_auc": {
+        "pruned_tree": 0.8499,
+        "random_forest": 0.9941,
+        "delta": 0.1442
+      }
+    },
+    "confusion_matrix_comparison": {
+      "false_negatives": {
+        "pruned_tree": 9,
+        "random_forest": 3,
+        "reduction": 6
+      },
+      "false_positives": {
+        "pruned_tree": 2,
+        "random_forest": 0,
+        "reduction": 2
+      }
+    }
+  }
+}
