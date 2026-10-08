@@ -195,9 +195,179 @@ def split_features_and_target(
     return X, y, ids
 
 
+from sklearn.model_selection import train_test_split
+import json
+
+from backend.src.config import (
+    RAW_DATA_PATH,
+    DATA_DIR,
+    FEATURE_NAMES,
+    TARGET_COLUMN,
+    ID_COLUMN,
+    POSITIVE_CLASS,
+    NEGATIVE_CLASS,
+    RANDOM_STATE,
+    TRAIN_RATIO,
+    VAL_RATIO,
+    TEST_RATIO,
+    TRAIN_DATA_PATH,
+    VAL_DATA_PATH,
+    TEST_DATA_PATH,
+    SPLIT_METADATA_PATH,
+)
+
+
+def stratified_split_data(
+    df: Optional[pd.DataFrame] = None,
+    save_files: bool = True
+) -> Dict[str, any]:
+    """
+    Thực hiện phân chia dữ liệu WDBC theo phương pháp Phân tầng (Stratified Split):
+    - Tỷ lệ đề xuất: 70% Train / 15% Validation / 15% Test (Lựa chọn triển khai).
+    - Cố định random_state = RANDOM_STATE (42) để đảm bảo tính tái lập 100%.
+    - Bảo toàn tỷ lệ nhãn Benign/Malignant trên cả 3 tập con.
+    - Ghi nhận và kiểm tra tính rời rạc tuyệt đối (Disjoint) của index giữa các tập.
+    - Lưu trữ train.csv, val.csv, test.csv và split_metadata.json.
+    """
+    if df is None:
+        df = load_wdbc_dataframe()
+
+    # Bước 1: Tách 70% Train và 30% Temp (giữ tỷ lệ phân tầng theo nhãn)
+    temp_ratio = VAL_RATIO + TEST_RATIO  # 0.30
+    df_train, df_temp = train_test_split(
+        df,
+        test_size=temp_ratio,
+        stratify=df[TARGET_COLUMN],
+        random_state=RANDOM_STATE
+    )
+
+    # Bước 2: Tách 30% Temp thành 15% Validation và 15% Test (tỷ lệ 50:50 của temp)
+    val_in_temp_ratio = VAL_RATIO / temp_ratio  # 0.15 / 0.30 = 0.50
+    df_val, df_test = train_test_split(
+        df_temp,
+        test_size=(1.0 - val_in_temp_ratio),
+        stratify=df_temp[TARGET_COLUMN],
+        random_state=RANDOM_STATE
+    )
+
+    # Trích xuất chỉ số index ban đầu
+    train_indices = [int(i) for i in df_train.index]
+    val_indices = [int(i) for i in df_val.index]
+    test_indices = [int(i) for i in df_test.index]
+
+    # Kiểm tra tính rời rạc (Zero Overlap / Disjoint Check)
+    set_train, set_val, set_test = set(train_indices), set(val_indices), set(test_indices)
+    assert len(set_train & set_val) == 0, "LỖI LEAKAGE: Trùng lặp giữa Train và Validation!"
+    assert len(set_train & set_test) == 0, "LỖI LEAKAGE: Trùng lặp giữa Train và Test!"
+    assert len(set_val & set_test) == 0, "LỖI LEAKAGE: Trùng lặp giữa Validation và Test!"
+    assert len(set_train | set_val | set_test) == len(df), "LỖI: Hợp các tập không bằng dữ liệu gốc!"
+
+    # Thống kê phân bố nhãn
+    def get_distribution(d: pd.DataFrame) -> Dict[str, any]:
+        counts = d[TARGET_COLUMN].value_counts().to_dict()
+        b_cnt = int(counts.get("B", 0))
+        m_cnt = int(counts.get("M", 0))
+        total = len(d)
+        return {
+            "total_samples": total,
+            "benign_count": b_cnt,
+            "malignant_count": m_cnt,
+            "malignant_ratio": round(m_cnt / total, 4) if total > 0 else 0.0
+        }
+
+    metadata = {
+        "split_config": {
+            "train_ratio": TRAIN_RATIO,
+            "val_ratio": VAL_RATIO,
+            "test_ratio": TEST_RATIO,
+            "random_state": RANDOM_STATE,
+            "split_type": "StratifiedTwoStageSplit",
+            "implementation_note": "Tỷ lệ 70/15/15 là lựa chọn triển khai thực nghiệm chuẩn, không phải ràng buộc cố định của tài liệu."
+        },
+        "sample_counts": {
+            "train": len(df_train),
+            "val": len(df_val),
+            "test": len(df_test),
+            "total": len(df)
+        },
+        "distributions": {
+            "original": get_distribution(df),
+            "train": get_distribution(df_train),
+            "val": get_distribution(df_val),
+            "test": get_distribution(df_test)
+        },
+        "disjoint_check": {
+            "train_intersect_val": len(set_train & set_val),
+            "train_intersect_test": len(set_train & set_test),
+            "val_intersect_test": len(set_val & set_test),
+            "is_perfectly_disjoint": True
+        },
+        "indices": {
+            "train": train_indices,
+            "val": val_indices,
+            "test": test_indices
+        }
+    }
+
+    if save_files:
+        DATA_DIR.mkdir(parents=True, exist_ok=True)
+        df_train.to_csv(TRAIN_DATA_PATH, index=True)
+        df_val.to_csv(VAL_DATA_PATH, index=True)
+        df_test.to_csv(TEST_DATA_PATH, index=True)
+
+        with open(SPLIT_METADATA_PATH, "w", encoding="utf-8") as f:
+            json.dump(metadata, f, indent=2, ensure_ascii=False)
+
+        logger.info(f"Đã lưu tập Train: {TRAIN_DATA_PATH} ({len(df_train)} mẫu)")
+        logger.info(f"Đã lưu tập Validation: {VAL_DATA_PATH} ({len(df_val)} mẫu)")
+        logger.info(f"Đã lưu tập Test: {TEST_DATA_PATH} ({len(df_test)} mẫu)")
+        logger.info(f"Đã lưu metadata phân chia: {SPLIT_METADATA_PATH}")
+
+    # Tách X, y cho từng tập
+    X_train, y_train, ids_train = split_features_and_target(df_train)
+    X_val, y_val, ids_val = split_features_and_target(df_val)
+    X_test, y_test, ids_test = split_features_and_target(df_test)
+
+    return {
+        "df_train": df_train, "df_val": df_val, "df_test": df_test,
+        "X_train": X_train, "y_train": y_train, "ids_train": ids_train,
+        "X_val": X_val, "y_val": y_val, "ids_val": ids_val,
+        "X_test": X_test, "y_test": y_test, "ids_test": ids_test,
+        "metadata": metadata
+    }
+
+
+def load_split_data() -> Tuple[
+    Tuple[pd.DataFrame, pd.Series],
+    Tuple[pd.DataFrame, pd.Series],
+    Tuple[pd.DataFrame, pd.Series]
+]:
+    """
+    Nạp sẵn các tập (X_train, y_train), (X_val, y_val), (X_test, y_test).
+    Nếu các tệp CSV chưa tồn tại, tự động thực hiện phân chia trước khi nạp.
+    """
+    if not (TRAIN_DATA_PATH.exists() and VAL_DATA_PATH.exists() and TEST_DATA_PATH.exists()):
+        splits = stratified_split_data(save_files=True)
+        return (
+            (splits["X_train"], splits["y_train"]),
+            (splits["X_val"], splits["y_val"]),
+            (splits["X_test"], splits["y_test"])
+        )
+
+    df_train = pd.read_csv(TRAIN_DATA_PATH, index_col=0)
+    df_val = pd.read_csv(VAL_DATA_PATH, index_col=0)
+    df_test = pd.read_csv(TEST_DATA_PATH, index_col=0)
+
+    X_train, y_train, _ = split_features_and_target(df_train)
+    X_val, y_val, _ = split_features_and_target(df_val)
+    X_test, y_test, _ = split_features_and_target(df_test)
+
+    return (X_train, y_train), (X_val, y_val), (X_test, y_test)
+
+
 if __name__ == "__main__":
     print("=" * 65)
-    print("KIỂM TRA QUY TRÌNH TẢI VÀ XÁC THỰC DỮ LIỆU WDBC")
+    print("KIỂM TRA QUY TRÌNH TẢI VÀ PHÂN CHIA DỮ LIỆU WDBC")
     print("=" * 65)
 
     data_file = download_uci_wdbc_data()
@@ -207,14 +377,18 @@ if __name__ == "__main__":
     print(f"1. Tệp dữ liệu lưu trữ tại: {data_file}")
     print(f"2. Mã băm SHA-256: {compute_sha256(data_file)}")
     print(f"3. Kích thước tập dữ liệu: {schema_info['num_rows']} mẫu, {schema_info['num_columns']} cột")
-    print(f"4. Số giá trị khuyết thiếu (NaN): {schema_info['missing_values_count']}")
+    print(f"4. Số giá trị khuyết thiếu: {schema_info['missing_values_count']}")
     print(f"5. Số dòng trùng lặp: {schema_info['duplicate_rows_count']}")
     print(f"6. Phân bố nhãn mục tiêu: {schema_info['target_distribution']}")
     print(f"7. Trạng thái kiểm tra Schema: {'HỢP LỆ (PASS)' if schema_info['is_valid'] else 'LỖI (FAIL)'}")
 
-    X, y, ids = split_features_and_target(df_raw, encode_target=True)
-    print(f"\n--- PHÂN TÁCH X, y, ID ---")
-    print(f"- Ma trận đặc trưng X: Kích thước {X.shape} (30 đặc trưng số, không có ID/diagnosis)")
-    print(f"- Vector nhãn mục tiêu y: Kích thước {y.shape} (Tỷ lệ lớp 1: {y.mean():.4f})")
-    print(f"- Chuỗi định danh ID: Kích thước {ids.shape} (Đã tách riêng an toàn)")
+    print("\n--- THỰC HIỆN PHÂN CHIA DỮ LIỆU STRATIFIED SPLIT 70/15/15 ---")
+    split_res = stratified_split_data(df_raw, save_files=True)
+    meta = split_res["metadata"]
+
+    print(f"Tập Train:      {split_res['X_train'].shape[0]} mẫu ({meta['distributions']['train']['malignant_ratio']*100:.2f}% Malignant)")
+    print(f"Tập Validation: {split_res['X_val'].shape[0]} mẫu ({meta['distributions']['val']['malignant_ratio']*100:.2f}% Malignant)")
+    print(f"Tập Test:       {split_res['X_test'].shape[0]} mẫu ({meta['distributions']['test']['malignant_ratio']*100:.2f}% Malignant)")
+    print(f"Kiểm tra rời rạc (Zero Overlap): {'PASS' if meta['disjoint_check']['is_perfectly_disjoint'] else 'FAIL'}")
     print("=" * 65)
+

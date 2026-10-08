@@ -22,8 +22,11 @@ DOCS_DIR = ROOT_DIR / "docs"
 
 # Cấu hình dữ liệu WDBC
 RAW_DATA_PATH = ROOT_DIR / "data.csv"
+WDBC_DATA_PATH = DATA_DIR / "wdbc.csv"
 TRAIN_DATA_PATH = DATA_DIR / "train.csv"
+VAL_DATA_PATH = DATA_DIR / "val.csv"
 TEST_DATA_PATH = DATA_DIR / "test.csv"
+SPLIT_METADATA_PATH = DATA_DIR / "split_metadata.json"
 
 ID_COLUMN = "id"
 TARGET_COLUMN = "diagnosis"
@@ -40,6 +43,8 @@ FEATURE_NAMES = [
     "compactness_worst", "concavity_worst", "concave points_worst", "symmetry_worst", "fractal_dimension_worst"
 ]
 
-# Tỷ lệ phân chia tập dữ liệu
-TEST_SIZE = 0.2  # 80% Train, 20% Test
+# Tỷ lệ phân chia tập dữ liệu (Lựa chọn triển khai: 70% Train, 15% Validation, 15% Test)
+TRAIN_RATIO = 0.70
+VAL_RATIO = 0.15
+TEST_RATIO = 0.15
 CV_FOLDS = 5     # 5-Fold Stratified Cross-Validation
