@@ -1,0 +1,39 @@
+{
+  "model_name": "DummyClassifier",
+  "strategy": "most_frequent",
+  "random_state": 42,
+  "evaluation_split": "Validation",
+  "sample_counts": {
+    "train_samples": 398,
+    "val_samples": 85
+  },
+  "target_definition": {
+    "positive_class": "Malignant (1)",
+    "negative_class": "Benign (0)"
+  },
+  "metrics": {
+    "accuracy": 0.6235,
+    "precision_malignant": 0.0,
+    "recall_malignant": 0.0,
+    "f1_malignant": 0.0,
+    "roc_auc": 0.5
+  },
+  "confusion_matrix": {
+    "matrix": [
+      [
+        53,
+        0
+      ],
+      [
+        32,
+        0
+      ]
+    ],
+    "true_negative": 53,
+    "false_positive": 0,
+    "false_negative": 32,
+    "true_positive": 0
+  },
+  "zero_division_explanation": "Do DummyClassifier (most_frequent) luôn dự đoán nhãn là 0 (Benign), số lượng ca được dự đoán là Dương tính bằng 0 (TP + FP = 0). Mẫu số của Precision = TP / (TP + FP) bị triệt tiêu (0 / 0). Theo quy chuẩn scikit-learn, giá trị được gán minh bạch bằng 0.0 để phản ánh mô hình không có khả năng nhận diện ca bệnh ác tính.",
+  "clinical_significance": "Mặc dù đạt Accuracy = 62.35%, mô hình bỏ sót toàn bộ 32/32 ca ung thư ác tính (Recall Malignant = 0.0%). Đây là minh chứng điển hình vì sao Accuracy là độ đo đánh lừa trong y tế."
+}
