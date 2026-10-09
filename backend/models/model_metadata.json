@@ -1,0 +1,48 @@
+{
+  "model_name": "WDBC_RandomForest_Classifier_Pipeline",
+  "version": "1.0.0",
+  "framework": "scikit-learn 1.9.1",
+  "created_date": "2026-10-09",
+  "author": "Do Huu Quoc Anh",
+  "project": "Project 16 - WDBC Classification",
+  "pipeline_file": "wdbc_pipeline.joblib",
+  "sha256_checksum": "1f5c3bc820674e6911d07fd1a372d592bc696e280470903a51276dc4a83451d1",
+  "input_features_count": 30,
+  "feature_order_schema_file": "feature_schema.json",
+  "target_definition": {
+    "positive_class": 1,
+    "positive_label": "Malignant",
+    "negative_class": 0,
+    "negative_label": "Benign"
+  },
+  "locked_hyperparameters": {
+    "n_estimators": 100,
+    "max_depth": 8,
+    "min_samples_leaf": 1,
+    "max_features": 0.3,
+    "criterion": "gini",
+    "random_state": 42
+  },
+  "decision_threshold": 0.5,
+  "training_data_summary": {
+    "train_samples": 398,
+    "val_samples": 85,
+    "total_fit_samples": 483,
+    "test_samples": 86
+  },
+  "test_performance_metrics": {
+    "accuracy": 0.9884,
+    "precision_malignant": 1.0,
+    "recall_malignant": 0.9688,
+    "f1_malignant": 0.9841,
+    "roc_auc": 0.9954,
+    "confusion_matrix": {
+      "tn": 54,
+      "fp": 0,
+      "fn": 1,
+      "tp": 31
+    }
+  },
+  "security_advisory": "CẢNH BÁO BẢO MẬT: Chỉ tải và giải nén tệp mô hình joblib từ nguồn tin cậy đã được kiểm chứng (Trusted Source) có mã băm SHA-256 trùng khớp, do rủi ro thực thi mã tùy ý khi deserialize tệp nhị phân Python (Arbitrary Code Execution via Pickle/Joblib).",
+  "clinical_disclaimer": "TUYÊN BỐ MIỄN TRỪ TRÁCH NHIỆM Y KHOA: Mô hình này được phát triển phục vụ mục đích nghiên cứu học thuật và giáo dục trong học phần Học máy cơ bản. Mô hình TUYỆT ĐỐI KHÔNG ĐƯỢC SỬ DỤNG cho mục đích chẩn đoán y tế, tự động ra phác đồ điều trị lâm sàng hoặc thay thế ý kiến chuyên môn của bác sĩ giải phẫu bệnh."
+}

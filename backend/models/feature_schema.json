@@ -1,0 +1,422 @@
+[
+  {
+    "index": 0,
+    "name": "radius_mean",
+    "dtype": "float64",
+    "group": "mean",
+    "cell_property": "radius",
+    "train_statistics": {
+      "min": 6.981,
+      "max": 28.11,
+      "mean": 14.126503,
+      "std": 3.553198,
+      "median": 13.355
+    }
+  },
+  {
+    "index": 1,
+    "name": "texture_mean",
+    "dtype": "float64",
+    "group": "mean",
+    "cell_property": "texture",
+    "train_statistics": {
+      "min": 9.71,
+      "max": 39.28,
+      "mean": 19.438241,
+      "std": 4.322444,
+      "median": 19.03
+    }
+  },
+  {
+    "index": 2,
+    "name": "perimeter_mean",
+    "dtype": "float64",
+    "group": "mean",
+    "cell_property": "perimeter",
+    "train_statistics": {
+      "min": 43.79,
+      "max": 188.5,
+      "mean": 91.904422,
+      "std": 24.447698,
+      "median": 86.365
+    }
+  },
+  {
+    "index": 3,
+    "name": "area_mean",
+    "dtype": "float64",
+    "group": "mean",
+    "cell_property": "area",
+    "train_statistics": {
+      "min": 143.5,
+      "max": 2499.0,
+      "mean": 655.325377,
+      "std": 353.683472,
+      "median": 548.75
+    }
+  },
+  {
+    "index": 4,
+    "name": "smoothness_mean",
+    "dtype": "float64",
+    "group": "mean",
+    "cell_property": "smoothness",
+    "train_statistics": {
+      "min": 0.06251,
+      "max": 0.1634,
+      "mean": 0.095857,
+      "std": 0.014401,
+      "median": 0.09515
+    }
+  },
+  {
+    "index": 5,
+    "name": "compactness_mean",
+    "dtype": "float64",
+    "group": "mean",
+    "cell_property": "compactness",
+    "train_statistics": {
+      "min": 0.01938,
+      "max": 0.3454,
+      "mean": 0.102648,
+      "std": 0.053486,
+      "median": 0.090945
+    }
+  },
+  {
+    "index": 6,
+    "name": "concavity_mean",
+    "dtype": "float64",
+    "group": "mean",
+    "cell_property": "concavity",
+    "train_statistics": {
+      "min": 0.0,
+      "max": 0.4268,
+      "mean": 0.088497,
+      "std": 0.081168,
+      "median": 0.05964
+    }
+  },
+  {
+    "index": 7,
+    "name": "concave points_mean",
+    "dtype": "float64",
+    "group": "mean",
+    "cell_property": "concave points",
+    "train_statistics": {
+      "min": 0.0,
+      "max": 0.2012,
+      "mean": 0.048535,
+      "std": 0.039323,
+      "median": 0.0333
+    }
+  },
+  {
+    "index": 8,
+    "name": "symmetry_mean",
+    "dtype": "float64",
+    "group": "mean",
+    "cell_property": "symmetry",
+    "train_statistics": {
+      "min": 0.106,
+      "max": 0.2906,
+      "mean": 0.181364,
+      "std": 0.027124,
+      "median": 0.1798
+    }
+  },
+  {
+    "index": 9,
+    "name": "fractal_dimension_mean",
+    "dtype": "float64",
+    "group": "dimension",
+    "cell_property": "fractal",
+    "train_statistics": {
+      "min": 0.05024,
+      "max": 0.09744,
+      "mean": 0.06262,
+      "std": 0.007131,
+      "median": 0.06126
+    }
+  },
+  {
+    "index": 10,
+    "name": "radius_se",
+    "dtype": "float64",
+    "group": "se",
+    "cell_property": "radius",
+    "train_statistics": {
+      "min": 0.1115,
+      "max": 2.873,
+      "mean": 0.406775,
+      "std": 0.278591,
+      "median": 0.31915
+    }
+  },
+  {
+    "index": 11,
+    "name": "texture_se",
+    "dtype": "float64",
+    "group": "se",
+    "cell_property": "texture",
+    "train_statistics": {
+      "min": 0.3602,
+      "max": 4.885,
+      "mean": 1.217377,
+      "std": 0.557028,
+      "median": 1.1095
+    }
+  },
+  {
+    "index": 12,
+    "name": "perimeter_se",
+    "dtype": "float64",
+    "group": "se",
+    "cell_property": "perimeter",
+    "train_statistics": {
+      "min": 0.757,
+      "max": 21.98,
+      "mean": 2.867628,
+      "std": 2.01502,
+      "median": 2.305
+    }
+  },
+  {
+    "index": 13,
+    "name": "area_se",
+    "dtype": "float64",
+    "group": "se",
+    "cell_property": "area",
+    "train_statistics": {
+      "min": 6.802,
+      "max": 525.6,
+      "mean": 40.296108,
+      "std": 43.562155,
+      "median": 24.61
+    }
+  },
+  {
+    "index": 14,
+    "name": "smoothness_se",
+    "dtype": "float64",
+    "group": "se",
+    "cell_property": "smoothness",
+    "train_statistics": {
+      "min": 0.001713,
+      "max": 0.03113,
+      "mean": 0.006924,
+      "std": 0.002889,
+      "median": 0.006293
+    }
+  },
+  {
+    "index": 15,
+    "name": "compactness_se",
+    "dtype": "float64",
+    "group": "se",
+    "cell_property": "compactness",
+    "train_statistics": {
+      "min": 0.002252,
+      "max": 0.1064,
+      "mean": 0.025142,
+      "std": 0.01791,
+      "median": 0.0198
+    }
+  },
+  {
+    "index": 16,
+    "name": "concavity_se",
+    "dtype": "float64",
+    "group": "se",
+    "cell_property": "concavity",
+    "train_statistics": {
+      "min": 0.0,
+      "max": 0.396,
+      "mean": 0.032268,
+      "std": 0.033092,
+      "median": 0.025875
+    }
+  },
+  {
+    "index": 17,
+    "name": "concave points_se",
+    "dtype": "float64",
+    "group": "se",
+    "cell_property": "concave points",
+    "train_statistics": {
+      "min": 0.0,
+      "max": 0.05279,
+      "mean": 0.011583,
+      "std": 0.006252,
+      "median": 0.010865
+    }
+  },
+  {
+    "index": 18,
+    "name": "symmetry_se",
+    "dtype": "float64",
+    "group": "se",
+    "cell_property": "symmetry",
+    "train_statistics": {
+      "min": 0.007882,
+      "max": 0.07895,
+      "mean": 0.020421,
+      "std": 0.008438,
+      "median": 0.018695
+    }
+  },
+  {
+    "index": 19,
+    "name": "fractal_dimension_se",
+    "dtype": "float64",
+    "group": "dimension",
+    "cell_property": "fractal",
+    "train_statistics": {
+      "min": 0.000895,
+      "max": 0.02984,
+      "mean": 0.003761,
+      "std": 0.002693,
+      "median": 0.003112
+    }
+  },
+  {
+    "index": 20,
+    "name": "radius_worst",
+    "dtype": "float64",
+    "group": "worst",
+    "cell_property": "radius",
+    "train_statistics": {
+      "min": 7.93,
+      "max": 33.13,
+      "mean": 16.296593,
+      "std": 4.852525,
+      "median": 14.975
+    }
+  },
+  {
+    "index": 21,
+    "name": "texture_worst",
+    "dtype": "float64",
+    "group": "worst",
+    "cell_property": "texture",
+    "train_statistics": {
+      "min": 12.02,
+      "max": 49.54,
+      "mean": 25.920905,
+      "std": 6.114636,
+      "median": 25.48
+    }
+  },
+  {
+    "index": 22,
+    "name": "perimeter_worst",
+    "dtype": "float64",
+    "group": "worst",
+    "cell_property": "perimeter",
+    "train_statistics": {
+      "min": 50.41,
+      "max": 229.3,
+      "mean": 107.401181,
+      "std": 33.710958,
+      "median": 97.735
+    }
+  },
+  {
+    "index": 23,
+    "name": "area_worst",
+    "dtype": "float64",
+    "group": "worst",
+    "cell_property": "area",
+    "train_statistics": {
+      "min": 185.2,
+      "max": 3432.0,
+      "mean": 883.117588,
+      "std": 566.874169,
+      "median": 684.55
+    }
+  },
+  {
+    "index": 24,
+    "name": "smoothness_worst",
+    "dtype": "float64",
+    "group": "worst",
+    "cell_property": "smoothness",
+    "train_statistics": {
+      "min": 0.07117,
+      "max": 0.2226,
+      "mean": 0.132163,
+      "std": 0.023796,
+      "median": 0.1311
+    }
+  },
+  {
+    "index": 25,
+    "name": "compactness_worst",
+    "dtype": "float64",
+    "group": "worst",
+    "cell_property": "compactness",
+    "train_statistics": {
+      "min": 0.02729,
+      "max": 1.058,
+      "mean": 0.252406,
+      "std": 0.157509,
+      "median": 0.21185
+    }
+  },
+  {
+    "index": 26,
+    "name": "concavity_worst",
+    "dtype": "float64",
+    "group": "worst",
+    "cell_property": "concavity",
+    "train_statistics": {
+      "min": 0.0,
+      "max": 1.252,
+      "mean": 0.273916,
+      "std": 0.210876,
+      "median": 0.229
+    }
+  },
+  {
+    "index": 27,
+    "name": "concave points_worst",
+    "dtype": "float64",
+    "group": "worst",
+    "cell_property": "concave points",
+    "train_statistics": {
+      "min": 0.0,
+      "max": 0.291,
+      "mean": 0.114698,
+      "std": 0.066494,
+      "median": 0.099425
+    }
+  },
+  {
+    "index": 28,
+    "name": "symmetry_worst",
+    "dtype": "float64",
+    "group": "worst",
+    "cell_property": "symmetry",
+    "train_statistics": {
+      "min": 0.1565,
+      "max": 0.6638,
+      "mean": 0.291131,
+      "std": 0.064191,
+      "median": 0.282
+    }
+  },
+  {
+    "index": 29,
+    "name": "fractal_dimension_worst",
+    "dtype": "float64",
+    "group": "dimension",
+    "cell_property": "fractal",
+    "train_statistics": {
+      "min": 0.05504,
+      "max": 0.2075,
+      "mean": 0.083861,
+      "std": 0.018232,
+      "median": 0.080065
+    }
+  }
+]
