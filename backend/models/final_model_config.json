@@ -1,0 +1,36 @@
+{
+  "project_name": "Project 16 - Breast Cancer Wisconsin Diagnostic Classification",
+  "model_selection": {
+    "selected_model": "RandomForestClassifier",
+    "rationale": "Random Forest vượt trội toàn diện so với DummyClassifier và các Cây quyết định đơn lẻ trên cả 5-Fold Cross-Validation và tập Validation độc lập. Mô hình đạt ROC-AUC 0.9941 trên Validation, hạ số ca bỏ sót bệnh (False Negatives) xuống chỉ còn 3 ca (Recall 90.62%), đồng thời không mắc lỗi báo động giả nào (Precision 100.0%, FP=0). Cơ chế tập hợp 100 cây con với Random Feature Selection (max_features=0.3) triệt tiêu phương sai, giải quyết triệt để vấn đề Overfitting của cây đơn lẻ."
+  },
+  "locked_hyperparameters": {
+    "n_estimators": 100,
+    "criterion": "gini",
+    "max_depth": 8,
+    "min_samples_split": 2,
+    "min_samples_leaf": 1,
+    "max_features": 0.3,
+    "bootstrap": true,
+    "random_state": 42,
+    "n_jobs": -1
+  },
+  "target_definition": {
+    "positive_class": 1,
+    "positive_label": "Malignant (Ác tính)",
+    "negative_class": 0,
+    "negative_label": "Benign (Lành tính)"
+  },
+  "locked_decision_threshold": {
+    "threshold": 0.5,
+    "rationale": "Sử dụng ngưỡng xác suất mặc định chuẩn 0.50. Trên tập Validation, ngưỡng 0.50 đã mang lại sự cân bằng hoàn hảo giữa độ nhạy lâm sàng (Recall 90.62%) và độ chuẩn xác tuyệt đối (Precision 100.0%), tránh nguy cơ overfitting ngưỡng phân loại (threshold overfitting)."
+  },
+  "retraining_strategy": {
+    "evaluation_model": "Model fit on Train (N=398) to provide rigorous, direct benchmarking against Validation (N=85) and Test (N=86).",
+    "production_model": "Model fit on Train + Validation (N=483) with identical frozen hyperparameters for final deployment."
+  },
+  "leakage_verification": {
+    "test_set_status": "Strictly frozen (N=86, 54 Benign, 32 Malignant). No preprocessing or hyperparameter search was conducted on Test.",
+    "verified_at": "2026-10-09"
+  }
+}
