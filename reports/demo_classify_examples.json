@@ -1,0 +1,1697 @@
+{
+  "benign_demo": {
+    "description": "Mẫu Lành tính điển hình (Test Index 1)",
+    "request_json": {
+      "radius_mean": 10.17,
+      "texture_mean": 14.88,
+      "perimeter_mean": 64.55,
+      "area_mean": 311.9,
+      "smoothness_mean": 0.1134,
+      "compactness_mean": 0.08061,
+      "concavity_mean": 0.01084,
+      "concave points_mean": 0.0129,
+      "symmetry_mean": 0.2743,
+      "fractal_dimension_mean": 0.0696,
+      "radius_se": 0.5158,
+      "texture_se": 1.441,
+      "perimeter_se": 3.312,
+      "area_se": 34.62,
+      "smoothness_se": 0.007514,
+      "compactness_se": 0.01099,
+      "concavity_se": 0.007665,
+      "concave points_se": 0.008193,
+      "symmetry_se": 0.04183,
+      "fractal_dimension_se": 0.005953,
+      "radius_worst": 11.02,
+      "texture_worst": 17.45,
+      "perimeter_worst": 69.86,
+      "area_worst": 368.6,
+      "smoothness_worst": 0.1275,
+      "compactness_worst": 0.09866,
+      "concavity_worst": 0.02168,
+      "concave points_worst": 0.02579,
+      "symmetry_worst": 0.3557,
+      "fractal_dimension_worst": 0.0802
+    },
+    "response_status_code": 200,
+    "response_json": {
+      "status": "success",
+      "predicted_class": 0,
+      "predicted_code": "B",
+      "predicted_label": "Benign",
+      "probabilities": {
+        "benign": 0.97,
+        "malignant": 0.03,
+        "B": 0.97,
+        "M": 0.03
+      },
+      "decision_threshold": 0.5,
+      "confidence_score": 97.0,
+      "is_high_risk": false,
+      "model_info": {
+        "model_name": "WDBC_RandomForest_Classifier_Pipeline",
+        "version": "1.0.0",
+        "algorithm": "RandomForestClassifier",
+        "decision_threshold": 0.5,
+        "input_features_count": 30
+      },
+      "explanation": {
+        "model_type": "RandomForestClassifier",
+        "explanation_method": "Ensemble Voting & Global Feature Importance",
+        "total_trees": 100,
+        "votes_breakdown": {
+          "benign_votes": 97,
+          "malignant_votes": 3,
+          "B": 97,
+          "M": 3
+        },
+        "vote_percentage": {
+          "Benign": 97.0,
+          "Malignant": 3.0,
+          "B": 97.0,
+          "M": 3.0
+        },
+        "top_influential_features": [
+          {
+            "rank": 1,
+            "feature": "area_worst",
+            "importance_score": 0.1903,
+            "sample_value": 368.6
+          },
+          {
+            "rank": 2,
+            "feature": "concave points_worst",
+            "importance_score": 0.1763,
+            "sample_value": 0.0258
+          },
+          {
+            "rank": 3,
+            "feature": "concave points_mean",
+            "importance_score": 0.1355,
+            "sample_value": 0.0129
+          },
+          {
+            "rank": 4,
+            "feature": "radius_worst",
+            "importance_score": 0.1188,
+            "sample_value": 11.02
+          },
+          {
+            "rank": 5,
+            "feature": "perimeter_worst",
+            "importance_score": 0.1033,
+            "sample_value": 69.86
+          }
+        ],
+        "aggregation_mechanism": "Soft-Voting (Trung bình cộng xác suất dự đoán qua 100 cây quyết định ngẫu nhiên)",
+        "methodological_limitation": "GIẢI THÍCH VÀ GIỚI HẠN PHƯƠNG PHÁP: Mô hình hiện tại là Random Forest gồm 100 cây quyết định độc lập. Quyết định phân loại là kết quả tổng hợp của TOÀN BỘ 100 CÂY thông qua cơ chế soft-voting. KHÔNG CÓ một đường đi rẽ nhánh đơn lẻ nào đại diện cho toàn bộ mô hình rừng. Mọi nỗ lực lấy đường đi của 1 cây đơn lẻ trong rừng để giải thích là SAI BẢN CHẤT thuật toán ensemble và gây hiểu nhầm lâm sàng."
+      },
+      "warnings": [],
+      "clinical_disclaimer": "TUYÊN BỐ MIỄN TRỪ TRÁCH NHIỆM Y KHOA: Mô hình này được phát triển phục vụ mục đích nghiên cứu học thuật và giáo dục trong học phần Học máy cơ bản. Mô hình TUYỆT ĐỐI KHÔNG ĐƯỢC SỬ DỤNG cho mục đích chẩn đoán y tế, tự động ra phác đồ điều trị lâm sàng hoặc thay thế ý kiến chuyên môn của bác sĩ giải phẫu bệnh.",
+      "timestamp": "2026-10-09T01:10:16.988870+00:00"
+    }
+  },
+  "malignant_demo": {
+    "description": "Mẫu Ác tính điển hình (Test Index 0)",
+    "request_json": {
+      "radius_mean": 19.59,
+      "texture_mean": 18.15,
+      "perimeter_mean": 130.7,
+      "area_mean": 1214.0,
+      "smoothness_mean": 0.112,
+      "compactness_mean": 0.1666,
+      "concavity_mean": 0.2508,
+      "concave points_mean": 0.1286,
+      "symmetry_mean": 0.2027,
+      "fractal_dimension_mean": 0.06082,
+      "radius_se": 0.7364,
+      "texture_se": 1.048,
+      "perimeter_se": 4.792,
+      "area_se": 97.07,
+      "smoothness_se": 0.004057,
+      "compactness_se": 0.02277,
+      "concavity_se": 0.04029,
+      "concave points_se": 0.01303,
+      "symmetry_se": 0.01686,
+      "fractal_dimension_se": 0.003318,
+      "radius_worst": 26.73,
+      "texture_worst": 26.39,
+      "perimeter_worst": 174.9,
+      "area_worst": 2232.0,
+      "smoothness_worst": 0.1438,
+      "compactness_worst": 0.3846,
+      "concavity_worst": 0.681,
+      "concave points_worst": 0.2247,
+      "symmetry_worst": 0.3643,
+      "fractal_dimension_worst": 0.09223
+    },
+    "response_status_code": 200,
+    "response_json": {
+      "status": "success",
+      "predicted_class": 1,
+      "predicted_code": "M",
+      "predicted_label": "Malignant",
+      "probabilities": {
+        "benign": 0.0,
+        "malignant": 1.0,
+        "B": 0.0,
+        "M": 1.0
+      },
+      "decision_threshold": 0.5,
+      "confidence_score": 100.0,
+      "is_high_risk": true,
+      "model_info": {
+        "model_name": "WDBC_RandomForest_Classifier_Pipeline",
+        "version": "1.0.0",
+        "algorithm": "RandomForestClassifier",
+        "decision_threshold": 0.5,
+        "input_features_count": 30
+      },
+      "explanation": {
+        "model_type": "RandomForestClassifier",
+        "explanation_method": "Ensemble Voting & Global Feature Importance",
+        "total_trees": 100,
+        "votes_breakdown": {
+          "benign_votes": 0,
+          "malignant_votes": 100,
+          "B": 0,
+          "M": 100
+        },
+        "vote_percentage": {
+          "Benign": 0.0,
+          "Malignant": 100.0,
+          "B": 0.0,
+          "M": 100.0
+        },
+        "top_influential_features": [
+          {
+            "rank": 1,
+            "feature": "area_worst",
+            "importance_score": 0.1903,
+            "sample_value": 2232.0
+          },
+          {
+            "rank": 2,
+            "feature": "concave points_worst",
+            "importance_score": 0.1763,
+            "sample_value": 0.2247
+          },
+          {
+            "rank": 3,
+            "feature": "concave points_mean",
+            "importance_score": 0.1355,
+            "sample_value": 0.1286
+          },
+          {
+            "rank": 4,
+            "feature": "radius_worst",
+            "importance_score": 0.1188,
+            "sample_value": 26.73
+          },
+          {
+            "rank": 5,
+            "feature": "perimeter_worst",
+            "importance_score": 0.1033,
+            "sample_value": 174.9
+          }
+        ],
+        "aggregation_mechanism": "Soft-Voting (Trung bình cộng xác suất dự đoán qua 100 cây quyết định ngẫu nhiên)",
+        "methodological_limitation": "GIẢI THÍCH VÀ GIỚI HẠN PHƯƠNG PHÁP: Mô hình hiện tại là Random Forest gồm 100 cây quyết định độc lập. Quyết định phân loại là kết quả tổng hợp của TOÀN BỘ 100 CÂY thông qua cơ chế soft-voting. KHÔNG CÓ một đường đi rẽ nhánh đơn lẻ nào đại diện cho toàn bộ mô hình rừng. Mọi nỗ lực lấy đường đi của 1 cây đơn lẻ trong rừng để giải thích là SAI BẢN CHẤT thuật toán ensemble và gây hiểu nhầm lâm sàng."
+      },
+      "warnings": [],
+      "clinical_disclaimer": "TUYÊN BỐ MIỄN TRỪ TRÁCH NHIỆM Y KHOA: Mô hình này được phát triển phục vụ mục đích nghiên cứu học thuật và giáo dục trong học phần Học máy cơ bản. Mô hình TUYỆT ĐỐI KHÔNG ĐƯỢC SỬ DỤNG cho mục đích chẩn đoán y tế, tự động ra phác đồ điều trị lâm sàng hoặc thay thế ý kiến chuyên môn của bác sĩ giải phẫu bệnh.",
+      "timestamp": "2026-10-09T01:10:17.097169+00:00"
+    }
+  },
+  "borderline_demo": {
+    "description": "Mẫu Ranh giới / Khó phân loại (Test Index 23)",
+    "request_json": {
+      "radius_mean": 14.48,
+      "texture_mean": 21.46,
+      "perimeter_mean": 94.25,
+      "area_mean": 648.2,
+      "smoothness_mean": 0.09444,
+      "compactness_mean": 0.09947,
+      "concavity_mean": 0.1204,
+      "concave points_mean": 0.04938,
+      "symmetry_mean": 0.2075,
+      "fractal_dimension_mean": 0.05636,
+      "radius_se": 0.4204,
+      "texture_se": 2.22,
+      "perimeter_se": 3.301,
+      "area_se": 38.87,
+      "smoothness_se": 0.009369,
+      "compactness_se": 0.02983,
+      "concavity_se": 0.05371,
+      "concave points_se": 0.01761,
+      "symmetry_se": 0.02418,
+      "fractal_dimension_se": 0.003249,
+      "radius_worst": 16.21,
+      "texture_worst": 29.25,
+      "perimeter_worst": 108.4,
+      "area_worst": 808.9,
+      "smoothness_worst": 0.1306,
+      "compactness_worst": 0.1976,
+      "concavity_worst": 0.3349,
+      "concave points_worst": 0.1225,
+      "symmetry_worst": 0.302,
+      "fractal_dimension_worst": 0.06846
+    },
+    "response_status_code": 200,
+    "response_json": {
+      "status": "success",
+      "predicted_class": 0,
+      "predicted_code": "B",
+      "predicted_label": "Benign",
+      "probabilities": {
+        "benign": 0.82,
+        "malignant": 0.18,
+        "B": 0.82,
+        "M": 0.18
+      },
+      "decision_threshold": 0.5,
+      "confidence_score": 82.0,
+      "is_high_risk": false,
+      "model_info": {
+        "model_name": "WDBC_RandomForest_Classifier_Pipeline",
+        "version": "1.0.0",
+        "algorithm": "RandomForestClassifier",
+        "decision_threshold": 0.5,
+        "input_features_count": 30
+      },
+      "explanation": {
+        "model_type": "RandomForestClassifier",
+        "explanation_method": "Ensemble Voting & Global Feature Importance",
+        "total_trees": 100,
+        "votes_breakdown": {
+          "benign_votes": 82,
+          "malignant_votes": 18,
+          "B": 82,
+          "M": 18
+        },
+        "vote_percentage": {
+          "Benign": 82.0,
+          "Malignant": 18.0,
+          "B": 82.0,
+          "M": 18.0
+        },
+        "top_influential_features": [
+          {
+            "rank": 1,
+            "feature": "area_worst",
+            "importance_score": 0.1903,
+            "sample_value": 808.9
+          },
+          {
+            "rank": 2,
+            "feature": "concave points_worst",
+            "importance_score": 0.1763,
+            "sample_value": 0.1225
+          },
+          {
+            "rank": 3,
+            "feature": "concave points_mean",
+            "importance_score": 0.1355,
+            "sample_value": 0.0494
+          },
+          {
+            "rank": 4,
+            "feature": "radius_worst",
+            "importance_score": 0.1188,
+            "sample_value": 16.21
+          },
+          {
+            "rank": 5,
+            "feature": "perimeter_worst",
+            "importance_score": 0.1033,
+            "sample_value": 108.4
+          }
+        ],
+        "aggregation_mechanism": "Soft-Voting (Trung bình cộng xác suất dự đoán qua 100 cây quyết định ngẫu nhiên)",
+        "methodological_limitation": "GIẢI THÍCH VÀ GIỚI HẠN PHƯƠNG PHÁP: Mô hình hiện tại là Random Forest gồm 100 cây quyết định độc lập. Quyết định phân loại là kết quả tổng hợp của TOÀN BỘ 100 CÂY thông qua cơ chế soft-voting. KHÔNG CÓ một đường đi rẽ nhánh đơn lẻ nào đại diện cho toàn bộ mô hình rừng. Mọi nỗ lực lấy đường đi của 1 cây đơn lẻ trong rừng để giải thích là SAI BẢN CHẤT thuật toán ensemble và gây hiểu nhầm lâm sàng."
+      },
+      "warnings": [],
+      "clinical_disclaimer": "TUYÊN BỐ MIỄN TRỪ TRÁCH NHIỆM Y KHOA: Mô hình này được phát triển phục vụ mục đích nghiên cứu học thuật và giáo dục trong học phần Học máy cơ bản. Mô hình TUYỆT ĐỐI KHÔNG ĐƯỢC SỬ DỤNG cho mục đích chẩn đoán y tế, tự động ra phác đồ điều trị lâm sàng hoặc thay thế ý kiến chuyên môn của bác sĩ giải phẫu bệnh.",
+      "timestamp": "2026-10-09T01:10:17.143426+00:00"
+    }
+  },
+  "out_of_distribution_warning_demo": {
+    "description": "Mẫu có đặc trưng vượt ngưỡng Train (sinh cảnh báo Out-Of-Distribution)",
+    "request_json": {
+      "radius_mean": 35.0,
+      "texture_mean": 14.88,
+      "perimeter_mean": 64.55,
+      "area_mean": 311.9,
+      "smoothness_mean": 0.1134,
+      "compactness_mean": 0.08061,
+      "concavity_mean": 0.01084,
+      "concave points_mean": 0.0129,
+      "symmetry_mean": 0.2743,
+      "fractal_dimension_mean": 0.0696,
+      "radius_se": 0.5158,
+      "texture_se": 1.441,
+      "perimeter_se": 3.312,
+      "area_se": 34.62,
+      "smoothness_se": 0.007514,
+      "compactness_se": 0.01099,
+      "concavity_se": 0.007665,
+      "concave points_se": 0.008193,
+      "symmetry_se": 0.04183,
+      "fractal_dimension_se": 0.005953,
+      "radius_worst": 11.02,
+      "texture_worst": 17.45,
+      "perimeter_worst": 69.86,
+      "area_worst": 368.6,
+      "smoothness_worst": 0.1275,
+      "compactness_worst": 0.09866,
+      "concavity_worst": 0.02168,
+      "concave points_worst": 0.02579,
+      "symmetry_worst": 0.3557,
+      "fractal_dimension_worst": 0.0802
+    },
+    "response_status_code": 200,
+    "response_json": {
+      "status": "success",
+      "predicted_class": 0,
+      "predicted_code": "B",
+      "predicted_label": "Benign",
+      "probabilities": {
+        "benign": 0.95,
+        "malignant": 0.05,
+        "B": 0.95,
+        "M": 0.05
+      },
+      "decision_threshold": 0.5,
+      "confidence_score": 95.0,
+      "is_high_risk": false,
+      "model_info": {
+        "model_name": "WDBC_RandomForest_Classifier_Pipeline",
+        "version": "1.0.0",
+        "algorithm": "RandomForestClassifier",
+        "decision_threshold": 0.5,
+        "input_features_count": 30
+      },
+      "explanation": {
+        "model_type": "RandomForestClassifier",
+        "explanation_method": "Ensemble Voting & Global Feature Importance",
+        "total_trees": 100,
+        "votes_breakdown": {
+          "benign_votes": 95,
+          "malignant_votes": 5,
+          "B": 95,
+          "M": 5
+        },
+        "vote_percentage": {
+          "Benign": 95.0,
+          "Malignant": 5.0,
+          "B": 95.0,
+          "M": 5.0
+        },
+        "top_influential_features": [
+          {
+            "rank": 1,
+            "feature": "area_worst",
+            "importance_score": 0.1903,
+            "sample_value": 368.6
+          },
+          {
+            "rank": 2,
+            "feature": "concave points_worst",
+            "importance_score": 0.1763,
+            "sample_value": 0.0258
+          },
+          {
+            "rank": 3,
+            "feature": "concave points_mean",
+            "importance_score": 0.1355,
+            "sample_value": 0.0129
+          },
+          {
+            "rank": 4,
+            "feature": "radius_worst",
+            "importance_score": 0.1188,
+            "sample_value": 11.02
+          },
+          {
+            "rank": 5,
+            "feature": "perimeter_worst",
+            "importance_score": 0.1033,
+            "sample_value": 69.86
+          }
+        ],
+        "aggregation_mechanism": "Soft-Voting (Trung bình cộng xác suất dự đoán qua 100 cây quyết định ngẫu nhiên)",
+        "methodological_limitation": "GIẢI THÍCH VÀ GIỚI HẠN PHƯƠNG PHÁP: Mô hình hiện tại là Random Forest gồm 100 cây quyết định độc lập. Quyết định phân loại là kết quả tổng hợp của TOÀN BỘ 100 CÂY thông qua cơ chế soft-voting. KHÔNG CÓ một đường đi rẽ nhánh đơn lẻ nào đại diện cho toàn bộ mô hình rừng. Mọi nỗ lực lấy đường đi của 1 cây đơn lẻ trong rừng để giải thích là SAI BẢN CHẤT thuật toán ensemble và gây hiểu nhầm lâm sàng."
+      },
+      "warnings": [
+        "Đặc trưng 'radius_mean' = 35.0000 > max_train (28.1100). Mẫu nằm ngoài khoảng quan sát huấn luyện phía trên (Out-Of-Distribution)."
+      ],
+      "clinical_disclaimer": "TUYÊN BỐ MIỄN TRỪ TRÁCH NHIỆM Y KHOA: Mô hình này được phát triển phục vụ mục đích nghiên cứu học thuật và giáo dục trong học phần Học máy cơ bản. Mô hình TUYỆT ĐỐI KHÔNG ĐƯỢC SỬ DỤNG cho mục đích chẩn đoán y tế, tự động ra phác đồ điều trị lâm sàng hoặc thay thế ý kiến chuyên môn của bác sĩ giải phẫu bệnh.",
+      "timestamp": "2026-10-09T01:10:17.188848+00:00"
+    }
+  },
+  "invalid_negative_error": {
+    "description": "Lỗi 422: Đặc trưng nhận giá trị âm (< 0)",
+    "request_json": {
+      "radius_mean": -5.0,
+      "texture_mean": 14.88,
+      "perimeter_mean": 64.55,
+      "area_mean": 311.9,
+      "smoothness_mean": 0.1134,
+      "compactness_mean": 0.08061,
+      "concavity_mean": 0.01084,
+      "concave points_mean": 0.0129,
+      "symmetry_mean": 0.2743,
+      "fractal_dimension_mean": 0.0696,
+      "radius_se": 0.5158,
+      "texture_se": 1.441,
+      "perimeter_se": 3.312,
+      "area_se": 34.62,
+      "smoothness_se": 0.007514,
+      "compactness_se": 0.01099,
+      "concavity_se": 0.007665,
+      "concave points_se": 0.008193,
+      "symmetry_se": 0.04183,
+      "fractal_dimension_se": 0.005953,
+      "radius_worst": 11.02,
+      "texture_worst": 17.45,
+      "perimeter_worst": 69.86,
+      "area_worst": 368.6,
+      "smoothness_worst": 0.1275,
+      "compactness_worst": 0.09866,
+      "concavity_worst": 0.02168,
+      "concave points_worst": 0.02579,
+      "symmetry_worst": 0.3557,
+      "fractal_dimension_worst": 0.0802
+    },
+    "response_status_code": 422,
+    "response_json": {
+      "detail": [
+        {
+          "type": "missing",
+          "loc": [
+            "body",
+            "ClassifyWrappedRequest",
+            "features"
+          ],
+          "msg": "Field required",
+          "input": {
+            "radius_mean": -5.0,
+            "texture_mean": 14.88,
+            "perimeter_mean": 64.55,
+            "area_mean": 311.9,
+            "smoothness_mean": 0.1134,
+            "compactness_mean": 0.08061,
+            "concavity_mean": 0.01084,
+            "concave points_mean": 0.0129,
+            "symmetry_mean": 0.2743,
+            "fractal_dimension_mean": 0.0696,
+            "radius_se": 0.5158,
+            "texture_se": 1.441,
+            "perimeter_se": 3.312,
+            "area_se": 34.62,
+            "smoothness_se": 0.007514,
+            "compactness_se": 0.01099,
+            "concavity_se": 0.007665,
+            "concave points_se": 0.008193,
+            "symmetry_se": 0.04183,
+            "fractal_dimension_se": 0.005953,
+            "radius_worst": 11.02,
+            "texture_worst": 17.45,
+            "perimeter_worst": 69.86,
+            "area_worst": 368.6,
+            "smoothness_worst": 0.1275,
+            "compactness_worst": 0.09866,
+            "concavity_worst": 0.02168,
+            "concave points_worst": 0.02579,
+            "symmetry_worst": 0.3557,
+            "fractal_dimension_worst": 0.0802
+          }
+        },
+        {
+          "type": "extra_forbidden",
+          "loc": [
+            "body",
+            "ClassifyWrappedRequest",
+            "radius_mean"
+          ],
+          "msg": "Extra inputs are not permitted",
+          "input": -5.0
+        },
+        {
+          "type": "extra_forbidden",
+          "loc": [
+            "body",
+            "ClassifyWrappedRequest",
+            "texture_mean"
+          ],
+          "msg": "Extra inputs are not permitted",
+          "input": 14.88
+        },
+        {
+          "type": "extra_forbidden",
+          "loc": [
+            "body",
+            "ClassifyWrappedRequest",
+            "perimeter_mean"
+          ],
+          "msg": "Extra inputs are not permitted",
+          "input": 64.55
+        },
+        {
+          "type": "extra_forbidden",
+          "loc": [
+            "body",
+            "ClassifyWrappedRequest",
+            "area_mean"
+          ],
+          "msg": "Extra inputs are not permitted",
+          "input": 311.9
+        },
+        {
+          "type": "extra_forbidden",
+          "loc": [
+            "body",
+            "ClassifyWrappedRequest",
+            "smoothness_mean"
+          ],
+          "msg": "Extra inputs are not permitted",
+          "input": 0.1134
+        },
+        {
+          "type": "extra_forbidden",
+          "loc": [
+            "body",
+            "ClassifyWrappedRequest",
+            "compactness_mean"
+          ],
+          "msg": "Extra inputs are not permitted",
+          "input": 0.08061
+        },
+        {
+          "type": "extra_forbidden",
+          "loc": [
+            "body",
+            "ClassifyWrappedRequest",
+            "concavity_mean"
+          ],
+          "msg": "Extra inputs are not permitted",
+          "input": 0.01084
+        },
+        {
+          "type": "extra_forbidden",
+          "loc": [
+            "body",
+            "ClassifyWrappedRequest",
+            "concave points_mean"
+          ],
+          "msg": "Extra inputs are not permitted",
+          "input": 0.0129
+        },
+        {
+          "type": "extra_forbidden",
+          "loc": [
+            "body",
+            "ClassifyWrappedRequest",
+            "symmetry_mean"
+          ],
+          "msg": "Extra inputs are not permitted",
+          "input": 0.2743
+        },
+        {
+          "type": "extra_forbidden",
+          "loc": [
+            "body",
+            "ClassifyWrappedRequest",
+            "fractal_dimension_mean"
+          ],
+          "msg": "Extra inputs are not permitted",
+          "input": 0.0696
+        },
+        {
+          "type": "extra_forbidden",
+          "loc": [
+            "body",
+            "ClassifyWrappedRequest",
+            "radius_se"
+          ],
+          "msg": "Extra inputs are not permitted",
+          "input": 0.5158
+        },
+        {
+          "type": "extra_forbidden",
+          "loc": [
+            "body",
+            "ClassifyWrappedRequest",
+            "texture_se"
+          ],
+          "msg": "Extra inputs are not permitted",
+          "input": 1.441
+        },
+        {
+          "type": "extra_forbidden",
+          "loc": [
+            "body",
+            "ClassifyWrappedRequest",
+            "perimeter_se"
+          ],
+          "msg": "Extra inputs are not permitted",
+          "input": 3.312
+        },
+        {
+          "type": "extra_forbidden",
+          "loc": [
+            "body",
+            "ClassifyWrappedRequest",
+            "area_se"
+          ],
+          "msg": "Extra inputs are not permitted",
+          "input": 34.62
+        },
+        {
+          "type": "extra_forbidden",
+          "loc": [
+            "body",
+            "ClassifyWrappedRequest",
+            "smoothness_se"
+          ],
+          "msg": "Extra inputs are not permitted",
+          "input": 0.007514
+        },
+        {
+          "type": "extra_forbidden",
+          "loc": [
+            "body",
+            "ClassifyWrappedRequest",
+            "compactness_se"
+          ],
+          "msg": "Extra inputs are not permitted",
+          "input": 0.01099
+        },
+        {
+          "type": "extra_forbidden",
+          "loc": [
+            "body",
+            "ClassifyWrappedRequest",
+            "concavity_se"
+          ],
+          "msg": "Extra inputs are not permitted",
+          "input": 0.007665
+        },
+        {
+          "type": "extra_forbidden",
+          "loc": [
+            "body",
+            "ClassifyWrappedRequest",
+            "concave points_se"
+          ],
+          "msg": "Extra inputs are not permitted",
+          "input": 0.008193
+        },
+        {
+          "type": "extra_forbidden",
+          "loc": [
+            "body",
+            "ClassifyWrappedRequest",
+            "symmetry_se"
+          ],
+          "msg": "Extra inputs are not permitted",
+          "input": 0.04183
+        },
+        {
+          "type": "extra_forbidden",
+          "loc": [
+            "body",
+            "ClassifyWrappedRequest",
+            "fractal_dimension_se"
+          ],
+          "msg": "Extra inputs are not permitted",
+          "input": 0.005953
+        },
+        {
+          "type": "extra_forbidden",
+          "loc": [
+            "body",
+            "ClassifyWrappedRequest",
+            "radius_worst"
+          ],
+          "msg": "Extra inputs are not permitted",
+          "input": 11.02
+        },
+        {
+          "type": "extra_forbidden",
+          "loc": [
+            "body",
+            "ClassifyWrappedRequest",
+            "texture_worst"
+          ],
+          "msg": "Extra inputs are not permitted",
+          "input": 17.45
+        },
+        {
+          "type": "extra_forbidden",
+          "loc": [
+            "body",
+            "ClassifyWrappedRequest",
+            "perimeter_worst"
+          ],
+          "msg": "Extra inputs are not permitted",
+          "input": 69.86
+        },
+        {
+          "type": "extra_forbidden",
+          "loc": [
+            "body",
+            "ClassifyWrappedRequest",
+            "area_worst"
+          ],
+          "msg": "Extra inputs are not permitted",
+          "input": 368.6
+        },
+        {
+          "type": "extra_forbidden",
+          "loc": [
+            "body",
+            "ClassifyWrappedRequest",
+            "smoothness_worst"
+          ],
+          "msg": "Extra inputs are not permitted",
+          "input": 0.1275
+        },
+        {
+          "type": "extra_forbidden",
+          "loc": [
+            "body",
+            "ClassifyWrappedRequest",
+            "compactness_worst"
+          ],
+          "msg": "Extra inputs are not permitted",
+          "input": 0.09866
+        },
+        {
+          "type": "extra_forbidden",
+          "loc": [
+            "body",
+            "ClassifyWrappedRequest",
+            "concavity_worst"
+          ],
+          "msg": "Extra inputs are not permitted",
+          "input": 0.02168
+        },
+        {
+          "type": "extra_forbidden",
+          "loc": [
+            "body",
+            "ClassifyWrappedRequest",
+            "concave points_worst"
+          ],
+          "msg": "Extra inputs are not permitted",
+          "input": 0.02579
+        },
+        {
+          "type": "extra_forbidden",
+          "loc": [
+            "body",
+            "ClassifyWrappedRequest",
+            "symmetry_worst"
+          ],
+          "msg": "Extra inputs are not permitted",
+          "input": 0.3557
+        },
+        {
+          "type": "extra_forbidden",
+          "loc": [
+            "body",
+            "ClassifyWrappedRequest",
+            "fractal_dimension_worst"
+          ],
+          "msg": "Extra inputs are not permitted",
+          "input": 0.0802
+        },
+        {
+          "type": "value_error",
+          "loc": [
+            "body",
+            "WDBCFeaturesInput",
+            "radius_mean"
+          ],
+          "msg": "Value error, Đặc trưng 'radius_mean' không thể nhận giá trị âm (-5.0 < 0) theo đặc tính sinh học tế bào.",
+          "input": -5.0,
+          "ctx": {
+            "error": {}
+          }
+        }
+      ]
+    }
+  },
+  "invalid_missing_field_error": {
+    "description": "Lỗi 422: Thiếu đặc trưng texture_mean",
+    "request_json": {
+      "radius_mean": 10.17,
+      "perimeter_mean": 64.55,
+      "area_mean": 311.9,
+      "smoothness_mean": 0.1134,
+      "compactness_mean": 0.08061,
+      "concavity_mean": 0.01084,
+      "concave points_mean": 0.0129,
+      "symmetry_mean": 0.2743,
+      "fractal_dimension_mean": 0.0696,
+      "radius_se": 0.5158,
+      "texture_se": 1.441,
+      "perimeter_se": 3.312,
+      "area_se": 34.62,
+      "smoothness_se": 0.007514,
+      "compactness_se": 0.01099,
+      "concavity_se": 0.007665,
+      "concave points_se": 0.008193,
+      "symmetry_se": 0.04183,
+      "fractal_dimension_se": 0.005953,
+      "radius_worst": 11.02,
+      "texture_worst": 17.45,
+      "perimeter_worst": 69.86,
+      "area_worst": 368.6,
+      "smoothness_worst": 0.1275,
+      "compactness_worst": 0.09866,
+      "concavity_worst": 0.02168,
+      "concave points_worst": 0.02579,
+      "symmetry_worst": 0.3557,
+      "fractal_dimension_worst": 0.0802
+    },
+    "response_status_code": 422,
+    "response_json": {
+      "detail": [
+        {
+          "type": "missing",
+          "loc": [
+            "body",
+            "ClassifyWrappedRequest",
+            "features"
+          ],
+          "msg": "Field required",
+          "input": {
+            "radius_mean": 10.17,
+            "perimeter_mean": 64.55,
+            "area_mean": 311.9,
+            "smoothness_mean": 0.1134,
+            "compactness_mean": 0.08061,
+            "concavity_mean": 0.01084,
+            "concave points_mean": 0.0129,
+            "symmetry_mean": 0.2743,
+            "fractal_dimension_mean": 0.0696,
+            "radius_se": 0.5158,
+            "texture_se": 1.441,
+            "perimeter_se": 3.312,
+            "area_se": 34.62,
+            "smoothness_se": 0.007514,
+            "compactness_se": 0.01099,
+            "concavity_se": 0.007665,
+            "concave points_se": 0.008193,
+            "symmetry_se": 0.04183,
+            "fractal_dimension_se": 0.005953,
+            "radius_worst": 11.02,
+            "texture_worst": 17.45,
+            "perimeter_worst": 69.86,
+            "area_worst": 368.6,
+            "smoothness_worst": 0.1275,
+            "compactness_worst": 0.09866,
+            "concavity_worst": 0.02168,
+            "concave points_worst": 0.02579,
+            "symmetry_worst": 0.3557,
+            "fractal_dimension_worst": 0.0802
+          }
+        },
+        {
+          "type": "extra_forbidden",
+          "loc": [
+            "body",
+            "ClassifyWrappedRequest",
+            "radius_mean"
+          ],
+          "msg": "Extra inputs are not permitted",
+          "input": 10.17
+        },
+        {
+          "type": "extra_forbidden",
+          "loc": [
+            "body",
+            "ClassifyWrappedRequest",
+            "perimeter_mean"
+          ],
+          "msg": "Extra inputs are not permitted",
+          "input": 64.55
+        },
+        {
+          "type": "extra_forbidden",
+          "loc": [
+            "body",
+            "ClassifyWrappedRequest",
+            "area_mean"
+          ],
+          "msg": "Extra inputs are not permitted",
+          "input": 311.9
+        },
+        {
+          "type": "extra_forbidden",
+          "loc": [
+            "body",
+            "ClassifyWrappedRequest",
+            "smoothness_mean"
+          ],
+          "msg": "Extra inputs are not permitted",
+          "input": 0.1134
+        },
+        {
+          "type": "extra_forbidden",
+          "loc": [
+            "body",
+            "ClassifyWrappedRequest",
+            "compactness_mean"
+          ],
+          "msg": "Extra inputs are not permitted",
+          "input": 0.08061
+        },
+        {
+          "type": "extra_forbidden",
+          "loc": [
+            "body",
+            "ClassifyWrappedRequest",
+            "concavity_mean"
+          ],
+          "msg": "Extra inputs are not permitted",
+          "input": 0.01084
+        },
+        {
+          "type": "extra_forbidden",
+          "loc": [
+            "body",
+            "ClassifyWrappedRequest",
+            "concave points_mean"
+          ],
+          "msg": "Extra inputs are not permitted",
+          "input": 0.0129
+        },
+        {
+          "type": "extra_forbidden",
+          "loc": [
+            "body",
+            "ClassifyWrappedRequest",
+            "symmetry_mean"
+          ],
+          "msg": "Extra inputs are not permitted",
+          "input": 0.2743
+        },
+        {
+          "type": "extra_forbidden",
+          "loc": [
+            "body",
+            "ClassifyWrappedRequest",
+            "fractal_dimension_mean"
+          ],
+          "msg": "Extra inputs are not permitted",
+          "input": 0.0696
+        },
+        {
+          "type": "extra_forbidden",
+          "loc": [
+            "body",
+            "ClassifyWrappedRequest",
+            "radius_se"
+          ],
+          "msg": "Extra inputs are not permitted",
+          "input": 0.5158
+        },
+        {
+          "type": "extra_forbidden",
+          "loc": [
+            "body",
+            "ClassifyWrappedRequest",
+            "texture_se"
+          ],
+          "msg": "Extra inputs are not permitted",
+          "input": 1.441
+        },
+        {
+          "type": "extra_forbidden",
+          "loc": [
+            "body",
+            "ClassifyWrappedRequest",
+            "perimeter_se"
+          ],
+          "msg": "Extra inputs are not permitted",
+          "input": 3.312
+        },
+        {
+          "type": "extra_forbidden",
+          "loc": [
+            "body",
+            "ClassifyWrappedRequest",
+            "area_se"
+          ],
+          "msg": "Extra inputs are not permitted",
+          "input": 34.62
+        },
+        {
+          "type": "extra_forbidden",
+          "loc": [
+            "body",
+            "ClassifyWrappedRequest",
+            "smoothness_se"
+          ],
+          "msg": "Extra inputs are not permitted",
+          "input": 0.007514
+        },
+        {
+          "type": "extra_forbidden",
+          "loc": [
+            "body",
+            "ClassifyWrappedRequest",
+            "compactness_se"
+          ],
+          "msg": "Extra inputs are not permitted",
+          "input": 0.01099
+        },
+        {
+          "type": "extra_forbidden",
+          "loc": [
+            "body",
+            "ClassifyWrappedRequest",
+            "concavity_se"
+          ],
+          "msg": "Extra inputs are not permitted",
+          "input": 0.007665
+        },
+        {
+          "type": "extra_forbidden",
+          "loc": [
+            "body",
+            "ClassifyWrappedRequest",
+            "concave points_se"
+          ],
+          "msg": "Extra inputs are not permitted",
+          "input": 0.008193
+        },
+        {
+          "type": "extra_forbidden",
+          "loc": [
+            "body",
+            "ClassifyWrappedRequest",
+            "symmetry_se"
+          ],
+          "msg": "Extra inputs are not permitted",
+          "input": 0.04183
+        },
+        {
+          "type": "extra_forbidden",
+          "loc": [
+            "body",
+            "ClassifyWrappedRequest",
+            "fractal_dimension_se"
+          ],
+          "msg": "Extra inputs are not permitted",
+          "input": 0.005953
+        },
+        {
+          "type": "extra_forbidden",
+          "loc": [
+            "body",
+            "ClassifyWrappedRequest",
+            "radius_worst"
+          ],
+          "msg": "Extra inputs are not permitted",
+          "input": 11.02
+        },
+        {
+          "type": "extra_forbidden",
+          "loc": [
+            "body",
+            "ClassifyWrappedRequest",
+            "texture_worst"
+          ],
+          "msg": "Extra inputs are not permitted",
+          "input": 17.45
+        },
+        {
+          "type": "extra_forbidden",
+          "loc": [
+            "body",
+            "ClassifyWrappedRequest",
+            "perimeter_worst"
+          ],
+          "msg": "Extra inputs are not permitted",
+          "input": 69.86
+        },
+        {
+          "type": "extra_forbidden",
+          "loc": [
+            "body",
+            "ClassifyWrappedRequest",
+            "area_worst"
+          ],
+          "msg": "Extra inputs are not permitted",
+          "input": 368.6
+        },
+        {
+          "type": "extra_forbidden",
+          "loc": [
+            "body",
+            "ClassifyWrappedRequest",
+            "smoothness_worst"
+          ],
+          "msg": "Extra inputs are not permitted",
+          "input": 0.1275
+        },
+        {
+          "type": "extra_forbidden",
+          "loc": [
+            "body",
+            "ClassifyWrappedRequest",
+            "compactness_worst"
+          ],
+          "msg": "Extra inputs are not permitted",
+          "input": 0.09866
+        },
+        {
+          "type": "extra_forbidden",
+          "loc": [
+            "body",
+            "ClassifyWrappedRequest",
+            "concavity_worst"
+          ],
+          "msg": "Extra inputs are not permitted",
+          "input": 0.02168
+        },
+        {
+          "type": "extra_forbidden",
+          "loc": [
+            "body",
+            "ClassifyWrappedRequest",
+            "concave points_worst"
+          ],
+          "msg": "Extra inputs are not permitted",
+          "input": 0.02579
+        },
+        {
+          "type": "extra_forbidden",
+          "loc": [
+            "body",
+            "ClassifyWrappedRequest",
+            "symmetry_worst"
+          ],
+          "msg": "Extra inputs are not permitted",
+          "input": 0.3557
+        },
+        {
+          "type": "extra_forbidden",
+          "loc": [
+            "body",
+            "ClassifyWrappedRequest",
+            "fractal_dimension_worst"
+          ],
+          "msg": "Extra inputs are not permitted",
+          "input": 0.0802
+        },
+        {
+          "type": "missing",
+          "loc": [
+            "body",
+            "WDBCFeaturesInput",
+            "texture_mean"
+          ],
+          "msg": "Field required",
+          "input": {
+            "radius_mean": 10.17,
+            "perimeter_mean": 64.55,
+            "area_mean": 311.9,
+            "smoothness_mean": 0.1134,
+            "compactness_mean": 0.08061,
+            "concavity_mean": 0.01084,
+            "concave points_mean": 0.0129,
+            "symmetry_mean": 0.2743,
+            "fractal_dimension_mean": 0.0696,
+            "radius_se": 0.5158,
+            "texture_se": 1.441,
+            "perimeter_se": 3.312,
+            "area_se": 34.62,
+            "smoothness_se": 0.007514,
+            "compactness_se": 0.01099,
+            "concavity_se": 0.007665,
+            "concave points_se": 0.008193,
+            "symmetry_se": 0.04183,
+            "fractal_dimension_se": 0.005953,
+            "radius_worst": 11.02,
+            "texture_worst": 17.45,
+            "perimeter_worst": 69.86,
+            "area_worst": 368.6,
+            "smoothness_worst": 0.1275,
+            "compactness_worst": 0.09866,
+            "concavity_worst": 0.02168,
+            "concave points_worst": 0.02579,
+            "symmetry_worst": 0.3557,
+            "fractal_dimension_worst": 0.0802
+          }
+        }
+      ]
+    }
+  },
+  "invalid_extra_field_error": {
+    "description": "Lỗi 422: Thừa đặc trưng patient_blood_pressure (extra=forbid)",
+    "request_json": {
+      "radius_mean": 10.17,
+      "texture_mean": 14.88,
+      "perimeter_mean": 64.55,
+      "area_mean": 311.9,
+      "smoothness_mean": 0.1134,
+      "compactness_mean": 0.08061,
+      "concavity_mean": 0.01084,
+      "concave points_mean": 0.0129,
+      "symmetry_mean": 0.2743,
+      "fractal_dimension_mean": 0.0696,
+      "radius_se": 0.5158,
+      "texture_se": 1.441,
+      "perimeter_se": 3.312,
+      "area_se": 34.62,
+      "smoothness_se": 0.007514,
+      "compactness_se": 0.01099,
+      "concavity_se": 0.007665,
+      "concave points_se": 0.008193,
+      "symmetry_se": 0.04183,
+      "fractal_dimension_se": 0.005953,
+      "radius_worst": 11.02,
+      "texture_worst": 17.45,
+      "perimeter_worst": 69.86,
+      "area_worst": 368.6,
+      "smoothness_worst": 0.1275,
+      "compactness_worst": 0.09866,
+      "concavity_worst": 0.02168,
+      "concave points_worst": 0.02579,
+      "symmetry_worst": 0.3557,
+      "fractal_dimension_worst": 0.0802,
+      "patient_blood_pressure": 120.0
+    },
+    "response_status_code": 422,
+    "response_json": {
+      "detail": [
+        {
+          "type": "missing",
+          "loc": [
+            "body",
+            "ClassifyWrappedRequest",
+            "features"
+          ],
+          "msg": "Field required",
+          "input": {
+            "radius_mean": 10.17,
+            "texture_mean": 14.88,
+            "perimeter_mean": 64.55,
+            "area_mean": 311.9,
+            "smoothness_mean": 0.1134,
+            "compactness_mean": 0.08061,
+            "concavity_mean": 0.01084,
+            "concave points_mean": 0.0129,
+            "symmetry_mean": 0.2743,
+            "fractal_dimension_mean": 0.0696,
+            "radius_se": 0.5158,
+            "texture_se": 1.441,
+            "perimeter_se": 3.312,
+            "area_se": 34.62,
+            "smoothness_se": 0.007514,
+            "compactness_se": 0.01099,
+            "concavity_se": 0.007665,
+            "concave points_se": 0.008193,
+            "symmetry_se": 0.04183,
+            "fractal_dimension_se": 0.005953,
+            "radius_worst": 11.02,
+            "texture_worst": 17.45,
+            "perimeter_worst": 69.86,
+            "area_worst": 368.6,
+            "smoothness_worst": 0.1275,
+            "compactness_worst": 0.09866,
+            "concavity_worst": 0.02168,
+            "concave points_worst": 0.02579,
+            "symmetry_worst": 0.3557,
+            "fractal_dimension_worst": 0.0802,
+            "patient_blood_pressure": 120.0
+          }
+        },
+        {
+          "type": "extra_forbidden",
+          "loc": [
+            "body",
+            "ClassifyWrappedRequest",
+            "radius_mean"
+          ],
+          "msg": "Extra inputs are not permitted",
+          "input": 10.17
+        },
+        {
+          "type": "extra_forbidden",
+          "loc": [
+            "body",
+            "ClassifyWrappedRequest",
+            "texture_mean"
+          ],
+          "msg": "Extra inputs are not permitted",
+          "input": 14.88
+        },
+        {
+          "type": "extra_forbidden",
+          "loc": [
+            "body",
+            "ClassifyWrappedRequest",
+            "perimeter_mean"
+          ],
+          "msg": "Extra inputs are not permitted",
+          "input": 64.55
+        },
+        {
+          "type": "extra_forbidden",
+          "loc": [
+            "body",
+            "ClassifyWrappedRequest",
+            "area_mean"
+          ],
+          "msg": "Extra inputs are not permitted",
+          "input": 311.9
+        },
+        {
+          "type": "extra_forbidden",
+          "loc": [
+            "body",
+            "ClassifyWrappedRequest",
+            "smoothness_mean"
+          ],
+          "msg": "Extra inputs are not permitted",
+          "input": 0.1134
+        },
+        {
+          "type": "extra_forbidden",
+          "loc": [
+            "body",
+            "ClassifyWrappedRequest",
+            "compactness_mean"
+          ],
+          "msg": "Extra inputs are not permitted",
+          "input": 0.08061
+        },
+        {
+          "type": "extra_forbidden",
+          "loc": [
+            "body",
+            "ClassifyWrappedRequest",
+            "concavity_mean"
+          ],
+          "msg": "Extra inputs are not permitted",
+          "input": 0.01084
+        },
+        {
+          "type": "extra_forbidden",
+          "loc": [
+            "body",
+            "ClassifyWrappedRequest",
+            "concave points_mean"
+          ],
+          "msg": "Extra inputs are not permitted",
+          "input": 0.0129
+        },
+        {
+          "type": "extra_forbidden",
+          "loc": [
+            "body",
+            "ClassifyWrappedRequest",
+            "symmetry_mean"
+          ],
+          "msg": "Extra inputs are not permitted",
+          "input": 0.2743
+        },
+        {
+          "type": "extra_forbidden",
+          "loc": [
+            "body",
+            "ClassifyWrappedRequest",
+            "fractal_dimension_mean"
+          ],
+          "msg": "Extra inputs are not permitted",
+          "input": 0.0696
+        },
+        {
+          "type": "extra_forbidden",
+          "loc": [
+            "body",
+            "ClassifyWrappedRequest",
+            "radius_se"
+          ],
+          "msg": "Extra inputs are not permitted",
+          "input": 0.5158
+        },
+        {
+          "type": "extra_forbidden",
+          "loc": [
+            "body",
+            "ClassifyWrappedRequest",
+            "texture_se"
+          ],
+          "msg": "Extra inputs are not permitted",
+          "input": 1.441
+        },
+        {
+          "type": "extra_forbidden",
+          "loc": [
+            "body",
+            "ClassifyWrappedRequest",
+            "perimeter_se"
+          ],
+          "msg": "Extra inputs are not permitted",
+          "input": 3.312
+        },
+        {
+          "type": "extra_forbidden",
+          "loc": [
+            "body",
+            "ClassifyWrappedRequest",
+            "area_se"
+          ],
+          "msg": "Extra inputs are not permitted",
+          "input": 34.62
+        },
+        {
+          "type": "extra_forbidden",
+          "loc": [
+            "body",
+            "ClassifyWrappedRequest",
+            "smoothness_se"
+          ],
+          "msg": "Extra inputs are not permitted",
+          "input": 0.007514
+        },
+        {
+          "type": "extra_forbidden",
+          "loc": [
+            "body",
+            "ClassifyWrappedRequest",
+            "compactness_se"
+          ],
+          "msg": "Extra inputs are not permitted",
+          "input": 0.01099
+        },
+        {
+          "type": "extra_forbidden",
+          "loc": [
+            "body",
+            "ClassifyWrappedRequest",
+            "concavity_se"
+          ],
+          "msg": "Extra inputs are not permitted",
+          "input": 0.007665
+        },
+        {
+          "type": "extra_forbidden",
+          "loc": [
+            "body",
+            "ClassifyWrappedRequest",
+            "concave points_se"
+          ],
+          "msg": "Extra inputs are not permitted",
+          "input": 0.008193
+        },
+        {
+          "type": "extra_forbidden",
+          "loc": [
+            "body",
+            "ClassifyWrappedRequest",
+            "symmetry_se"
+          ],
+          "msg": "Extra inputs are not permitted",
+          "input": 0.04183
+        },
+        {
+          "type": "extra_forbidden",
+          "loc": [
+            "body",
+            "ClassifyWrappedRequest",
+            "fractal_dimension_se"
+          ],
+          "msg": "Extra inputs are not permitted",
+          "input": 0.005953
+        },
+        {
+          "type": "extra_forbidden",
+          "loc": [
+            "body",
+            "ClassifyWrappedRequest",
+            "radius_worst"
+          ],
+          "msg": "Extra inputs are not permitted",
+          "input": 11.02
+        },
+        {
+          "type": "extra_forbidden",
+          "loc": [
+            "body",
+            "ClassifyWrappedRequest",
+            "texture_worst"
+          ],
+          "msg": "Extra inputs are not permitted",
+          "input": 17.45
+        },
+        {
+          "type": "extra_forbidden",
+          "loc": [
+            "body",
+            "ClassifyWrappedRequest",
+            "perimeter_worst"
+          ],
+          "msg": "Extra inputs are not permitted",
+          "input": 69.86
+        },
+        {
+          "type": "extra_forbidden",
+          "loc": [
+            "body",
+            "ClassifyWrappedRequest",
+            "area_worst"
+          ],
+          "msg": "Extra inputs are not permitted",
+          "input": 368.6
+        },
+        {
+          "type": "extra_forbidden",
+          "loc": [
+            "body",
+            "ClassifyWrappedRequest",
+            "smoothness_worst"
+          ],
+          "msg": "Extra inputs are not permitted",
+          "input": 0.1275
+        },
+        {
+          "type": "extra_forbidden",
+          "loc": [
+            "body",
+            "ClassifyWrappedRequest",
+            "compactness_worst"
+          ],
+          "msg": "Extra inputs are not permitted",
+          "input": 0.09866
+        },
+        {
+          "type": "extra_forbidden",
+          "loc": [
+            "body",
+            "ClassifyWrappedRequest",
+            "concavity_worst"
+          ],
+          "msg": "Extra inputs are not permitted",
+          "input": 0.02168
+        },
+        {
+          "type": "extra_forbidden",
+          "loc": [
+            "body",
+            "ClassifyWrappedRequest",
+            "concave points_worst"
+          ],
+          "msg": "Extra inputs are not permitted",
+          "input": 0.02579
+        },
+        {
+          "type": "extra_forbidden",
+          "loc": [
+            "body",
+            "ClassifyWrappedRequest",
+            "symmetry_worst"
+          ],
+          "msg": "Extra inputs are not permitted",
+          "input": 0.3557
+        },
+        {
+          "type": "extra_forbidden",
+          "loc": [
+            "body",
+            "ClassifyWrappedRequest",
+            "fractal_dimension_worst"
+          ],
+          "msg": "Extra inputs are not permitted",
+          "input": 0.0802
+        },
+        {
+          "type": "extra_forbidden",
+          "loc": [
+            "body",
+            "ClassifyWrappedRequest",
+            "patient_blood_pressure"
+          ],
+          "msg": "Extra inputs are not permitted",
+          "input": 120.0
+        },
+        {
+          "type": "extra_forbidden",
+          "loc": [
+            "body",
+            "WDBCFeaturesInput",
+            "patient_blood_pressure"
+          ],
+          "msg": "Extra inputs are not permitted",
+          "input": 120.0
+        }
+      ]
+    }
+  },
+  "invalid_extreme_anomaly_error": {
+    "description": "Lỗi 422: Vượt quá giới hạn vật lý tế bào cực đoan (radius_mean=9999.0)",
+    "request_json": {
+      "radius_mean": 9999.0,
+      "texture_mean": 14.88,
+      "perimeter_mean": 64.55,
+      "area_mean": 311.9,
+      "smoothness_mean": 0.1134,
+      "compactness_mean": 0.08061,
+      "concavity_mean": 0.01084,
+      "concave points_mean": 0.0129,
+      "symmetry_mean": 0.2743,
+      "fractal_dimension_mean": 0.0696,
+      "radius_se": 0.5158,
+      "texture_se": 1.441,
+      "perimeter_se": 3.312,
+      "area_se": 34.62,
+      "smoothness_se": 0.007514,
+      "compactness_se": 0.01099,
+      "concavity_se": 0.007665,
+      "concave points_se": 0.008193,
+      "symmetry_se": 0.04183,
+      "fractal_dimension_se": 0.005953,
+      "radius_worst": 11.02,
+      "texture_worst": 17.45,
+      "perimeter_worst": 69.86,
+      "area_worst": 368.6,
+      "smoothness_worst": 0.1275,
+      "compactness_worst": 0.09866,
+      "concavity_worst": 0.02168,
+      "concave points_worst": 0.02579,
+      "symmetry_worst": 0.3557,
+      "fractal_dimension_worst": 0.0802
+    },
+    "response_status_code": 422,
+    "response_json": {
+      "detail": "Đặc trưng 'radius_mean' có giá trị 9999.0 vượt quá giới hạn sinh học cực đoan (ngưỡng tối đa cho phép: 421.65). Vui lòng kiểm tra lại thiết bị đo."
+    }
+  }
+}
