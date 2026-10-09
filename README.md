@@ -128,6 +128,11 @@ python backend/src/evaluate.py
 uvicorn backend.app.main:app --reload --port 8000
 ```
 
+```powershell
+# Bước 5: Khởi chạy ứng dụng ReactJS (Frontend)
+cd frontend
+npm run dev
+```
 ---
 
 ## 5. THÀNH VIÊN VÀ PHÂN CÔNG THỰC HIỆN
