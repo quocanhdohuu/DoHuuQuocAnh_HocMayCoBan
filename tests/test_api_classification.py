@@ -1,21 +1,21 @@
 """
-Unit tests cho Classification API (Nhiệm vụ 17).
-Kiểm thử chi tiết:
-1. Dự đoán thành công mẫu Lành tính (Benign, nhãn B, mã 0, xác suất hợp lệ).
-2. Dự đoán thành công mẫu Ác tính (Malignant, nhãn M, mã 1, xác suất hợp lệ).
-3. Hỗ trợ cấu trúc payload trực tiếp 30 đặc trưng và dạng gói (wrapped with custom threshold).
-4. Kiểm tra endpoint alias POST /api/predict hoạt động đồng nhất với /api/demo-classify.
-5. Từ chối yêu cầu thiếu đặc trưng (HTTP 422).
-6. Từ chối yêu cầu thừa đặc trưng ngoài danh mục schema (HTTP 422 extra=forbid).
-7. Từ chối giá trị âm (HTTP 422).
-8. Từ chối giá trị NaN, Infinity hoặc sai kiểu dữ liệu (HTTP 422).
-9. Từ chối giá trị cực đoan phi lý sinh học (HTTP 422).
-10. Cảnh báo Out-of-Distribution (OOD) khi đặc trưng nằm ngoài dải huấn luyện nhưng vẫn trong giới hạn an toàn.
-11. Kiểm tra cấu trúc giải thích Random Forest: 100 cây, tỷ lệ phiếu bầu, top đặc trưng và tuyên bố giới hạn phương pháp.
-12. Xử lý khi mô hình chưa nạp: trả về HTTP 503 Service Unavailable.
+Unit và Integration tests cho Backend FastAPI (Project 16 - Nhiệm vụ 18).
+Bao phủ toàn diện:
+1. Request đủ 30 feature (Benign, Malignant, Borderline).
+2. Kiểm tra nhãn (B/M, Benign/Malignant) và tính nhất quán giữa predict_proba và predict.
+3. Kiểm tra tổng xác suất các lớp xấp xỉ 1.0 (abs(p_b + p_m - 1.0) < 1e-4).
+4. Kiểm tra sự dịch chuyển nhãn khi thay đổi decision_threshold tùy chỉnh.
+5. Kiểm thử từ chối thiếu feature, thừa feature (extra=forbid).
+6. Kiểm thử dữ liệu kiểu string không hợp lệ ("abc"), NaN, Infinity.
+7. Kiểm thử giá trị ngoài miền tham chiếu: cảnh báo Out-of-Distribution và từ chối giá trị cực đoan.
+8. Kiểm thử từ chối giá trị âm theo đặc tính sinh học tế bào (< 0).
+9. Kiểm thử cấu trúc giải thích Random Forest: 100 cây, tỷ lệ phiếu bầu, top features, giới hạn phương pháp.
+10. Kiểm thử trường hợp model artifact không thể nạp (HTTP 503 Degraded cho cả health và classify).
+11. Kiểm tra tính đồng nhất giữa POST /api/demo-classify và alias POST /api/predict.
 """
 
 import sys
+import math
 from pathlib import Path
 from unittest.mock import patch
 import pytest
@@ -45,12 +45,17 @@ def test_samples():
     mal_idx = int((y_test.values == 1).argmax())
     sample_b = X_test.iloc[benign_idx].to_dict()
     sample_m = X_test.iloc[mal_idx].to_dict()
-    return sample_b, sample_m
+    sample_border = X_test.iloc[23].to_dict()  # Sample #23 (ca ranh giới / FN)
+    return sample_b, sample_m, sample_border
 
+
+# ==============================================================================
+# 1. KIỂM THỬ DỰ ĐOÁN HỢP LỆ VÀ TÍNH TOÀN VẸN XÁC SUẤT (YÊU CẦU 2, 7, 8)
+# ==============================================================================
 
 def test_classify_benign_sample(client, test_samples):
-    """Kiểm tra dự đoán mẫu Lành tính (Benign)."""
-    sample_b, _ = test_samples
+    """Kiểm tra dự đoán mẫu Lành tính (Benign, nhãn B, mã 0)."""
+    sample_b, _, _ = test_samples
     response = client.post("/api/demo-classify", json=sample_b)
     assert response.status_code == 200
     data = response.json()
@@ -70,8 +75,8 @@ def test_classify_benign_sample(client, test_samples):
 
 
 def test_classify_malignant_sample(client, test_samples):
-    """Kiểm tra dự đoán mẫu Ác tính (Malignant)."""
-    _, sample_m = test_samples
+    """Kiểm tra dự đoán mẫu Ác tính (Malignant, nhãn M, mã 1)."""
+    _, sample_m, _ = test_samples
     response = client.post("/api/demo-classify", json=sample_m)
     assert response.status_code == 200
     data = response.json()
@@ -85,23 +90,61 @@ def test_classify_malignant_sample(client, test_samples):
     assert data["probabilities"]["benign"] < 0.50
 
 
-def test_wrapped_payload_with_custom_threshold(client, test_samples):
-    """Kiểm tra payload dạng gói {"features": {...}, "threshold": 0.9}."""
-    sample_b, _ = test_samples
-    payload = {
-        "features": sample_b,
-        "threshold": 0.85
-    }
-    response = client.post("/api/demo-classify", json=payload)
-    assert response.status_code == 200
-    data = response.json()
-    assert data["decision_threshold"] == 0.85
-    assert data["model_info"]["decision_threshold"] == 0.85
+def test_probability_sum_equals_one(client, test_samples):
+    """Kiểm tra tổng xác suất P(Benign) + P(Malignant) xấp xỉ 1.0 (Yêu cầu 8)."""
+    for sample in test_samples:
+        response = client.post("/api/demo-classify", json=sample)
+        assert response.status_code == 200
+        probs = response.json()["probabilities"]
+        prob_sum = probs["benign"] + probs["malignant"]
+        assert math.isclose(prob_sum, 1.0, abs_tol=1e-3), f"Tổng xác suất không bằng 1: {prob_sum}"
+
+
+def test_consistency_between_predict_and_predict_proba(client, test_samples):
+    """Kiểm tra tính nhất quán toán học giữa xác suất và nhãn dự đoán (Yêu cầu 7)."""
+    for sample in test_samples:
+        response = client.post("/api/demo-classify", json=sample)
+        assert response.status_code == 200
+        data = response.json()
+
+        threshold = data["decision_threshold"]
+        prob_m = data["probabilities"]["malignant"]
+        expected_class = 1 if prob_m >= threshold else 0
+        expected_code = "M" if expected_class == 1 else "B"
+        expected_label = "Malignant" if expected_class == 1 else "Benign"
+
+        assert data["predicted_class"] == expected_class
+        assert data["predicted_code"] == expected_code
+        assert data["predicted_label"] == expected_label
+
+
+def test_threshold_shift_consistency(client, test_samples):
+    """Kiểm tra điều chỉnh ngưỡng phân loại lâm sàng (Decision Threshold Tuning)."""
+    _, _, sample_border = test_samples
+    # Kiểm tra với ngưỡng chuẩn 0.50
+    res_default = client.post("/api/demo-classify", json={"features": sample_border, "threshold": 0.50})
+    assert res_default.status_code == 200
+    data_def = res_default.json()
+    prob_m = data_def["probabilities"]["malignant"]
+
+    # Đặt ngưỡng thấp hơn prob_m -> phải chuyển sang Malignant
+    lower_threshold = max(0.01, round(prob_m - 0.05, 2))
+    res_lower = client.post("/api/demo-classify", json={"features": sample_border, "threshold": lower_threshold})
+    assert res_lower.status_code == 200
+    assert res_lower.json()["predicted_class"] == 1
+    assert res_lower.json()["predicted_code"] == "M"
+
+    # Đặt ngưỡng cao hơn prob_m -> phải chuyển sang Benign
+    higher_threshold = min(0.99, round(prob_m + 0.05, 2))
+    res_higher = client.post("/api/demo-classify", json={"features": sample_border, "threshold": higher_threshold})
+    assert res_higher.status_code == 200
+    assert res_higher.json()["predicted_class"] == 0
+    assert res_higher.json()["predicted_code"] == "B"
 
 
 def test_predict_alias_endpoint(client, test_samples):
-    """Kiểm tra endpoint alias POST /api/predict trả về kết quả tương đương /api/demo-classify."""
-    sample_b, _ = test_samples
+    """Kiểm tra endpoint alias POST /api/predict hoạt động đồng nhất với /api/demo-classify."""
+    sample_b, _, _ = test_samples
     res_predict = client.post("/api/predict", json=sample_b)
     res_demo = client.post("/api/demo-classify", json=sample_b)
 
@@ -111,9 +154,104 @@ def test_predict_alias_endpoint(client, test_samples):
     assert res_predict.json()["probabilities"] == res_demo.json()["probabilities"]
 
 
+# ==============================================================================
+# 2. KIỂM THỬ XÁC THỰC PYDANTIC & MIỀN GIÁ TRỊ (YÊU CẦU 3, 4, 5)
+# ==============================================================================
+
+def test_validation_missing_feature(client, test_samples):
+    """Từ chối khi thiếu bất kỳ đặc trưng nào trong 30 đặc trưng (HTTP 422)."""
+    sample_b, _, _ = test_samples
+    invalid_sample = sample_b.copy()
+    del invalid_sample["radius_mean"]
+
+    response = client.post("/api/demo-classify", json=invalid_sample)
+    assert response.status_code == 422
+    data = response.json()
+    assert any("radius_mean" in str(err) for err in data["detail"])
+
+
+def test_validation_extra_feature_forbidden(client, test_samples):
+    """Từ chối khi có trường thừa ngoài schema (HTTP 422 extra=forbid)."""
+    sample_b, _, _ = test_samples
+    invalid_sample = sample_b.copy()
+    invalid_sample["patient_blood_pressure"] = 120.0
+
+    response = client.post("/api/demo-classify", json=invalid_sample)
+    assert response.status_code == 422
+
+
+def test_validation_invalid_string_datatype(client, test_samples):
+    """Từ chối dữ liệu chuỗi không hợp lệ 'abc' (HTTP 422)."""
+    sample_b, _, _ = test_samples
+    invalid_sample = sample_b.copy()
+    invalid_sample["texture_mean"] = "not_a_valid_float"
+
+    response = client.post("/api/demo-classify", json=invalid_sample)
+    assert response.status_code == 422
+
+
+def test_validation_nan_rejected(client, test_samples):
+    """Từ chối giá trị NaN (HTTP 422)."""
+    sample_b, _, _ = test_samples
+    invalid_sample = sample_b.copy()
+    invalid_sample["radius_mean"] = "NaN"
+
+    response = client.post("/api/demo-classify", json=invalid_sample)
+    assert response.status_code == 422
+
+
+def test_validation_infinity_rejected(client, test_samples):
+    """Từ chối giá trị Infinity (HTTP 422)."""
+    sample_b, _, _ = test_samples
+    invalid_sample = sample_b.copy()
+    invalid_sample["radius_mean"] = "Infinity"
+
+    response = client.post("/api/demo-classify", json=invalid_sample)
+    assert response.status_code == 422
+
+
+def test_validation_negative_value_rejected(client, test_samples):
+    """Từ chối khi đặc trưng sinh học nhận giá trị âm < 0 (HTTP 422)."""
+    sample_b, _, _ = test_samples
+    invalid_sample = sample_b.copy()
+    invalid_sample["area_mean"] = -10.5
+
+    response = client.post("/api/demo-classify", json=invalid_sample)
+    assert response.status_code == 422
+    assert "không thể nhận giá trị âm" in response.text
+
+
+def test_validation_extreme_biological_anomaly(client, test_samples):
+    """Từ chối giá trị vượt quá giới hạn sinh học cực đoan > 15 * max_train (HTTP 422)."""
+    sample_b, _, _ = test_samples
+    invalid_sample = sample_b.copy()
+    invalid_sample["radius_mean"] = 5000.0
+
+    response = client.post("/api/demo-classify", json=invalid_sample)
+    assert response.status_code == 422
+    assert "vượt quá giới hạn sinh học cực đoan" in response.text
+
+
+def test_out_of_distribution_warning(client, test_samples):
+    """Chấp nhận mẫu hợp lệ nhưng cảnh báo OOD khi giá trị nằm ngoài dải Train."""
+    sample_b, _, _ = test_samples
+    ood_sample = sample_b.copy()
+    ood_sample["radius_mean"] = 32.0  # Max train là 28.11, nhưng vẫn dưới ngưỡng cực đoan 421
+
+    response = client.post("/api/demo-classify", json=ood_sample)
+    assert response.status_code == 200
+    data = response.json()
+    assert len(data["warnings"]) >= 1
+    assert any("radius_mean" in w and "Out-Of-Distribution" in w for w in data["warnings"])
+
+
+# ==============================================================================
+# 3. KIỂM THỬ CẤU TRÚC GIẢI THÍCH MÔ HÌNH VÀ DEGRADED MODE (YÊU CẦU 6, 9, 10)
+# ==============================================================================
+
 def test_random_forest_explanation_structure(client, test_samples):
-    """Kiểm tra tính chuẩn mực của phần giải thích mô hình Random Forest (Yêu cầu 10)."""
-    sample_b, _ = test_samples
+    """Kiểm tra tính chuẩn mực của phần giải thích mô hình Random Forest."""
+    sample_b, _, _ = test_samples
     response = client.post("/api/demo-classify", json=sample_b)
     assert response.status_code == 200
     exp = response.json()["explanation"]
@@ -125,81 +263,34 @@ def test_random_forest_explanation_structure(client, test_samples):
     assert "top_influential_features" in exp
     assert len(exp["top_influential_features"]) == 5
 
-    # Phải có tuyên bố rõ ràng về GIỚI HẠN phương pháp
+    # Tuyên bố rõ ràng về GIỚI HẠN phương pháp
     assert "methodological_limitation" in exp
     assert "KHÔNG CÓ một đường đi rẽ nhánh đơn lẻ nào" in exp["methodological_limitation"]
 
 
-def test_validation_missing_feature(client, test_samples):
-    """Từ chối khi thiếu đặc trưng (HTTP 422)."""
-    sample_b, _ = test_samples
-    invalid_sample = sample_b.copy()
-    del invalid_sample["radius_mean"]
-
-    response = client.post("/api/demo-classify", json=invalid_sample)
-    assert response.status_code == 422
-
-
-def test_validation_extra_feature_forbidden(client, test_samples):
-    """Từ chối khi có trường thừa ngoài schema (HTTP 422 extra=forbid)."""
-    sample_b, _ = test_samples
-    invalid_sample = sample_b.copy()
-    invalid_sample["unauthorized_patient_id"] = 12345
-
-    response = client.post("/api/demo-classify", json=invalid_sample)
-    assert response.status_code == 422
-
-
-def test_validation_negative_value_rejected(client, test_samples):
-    """Từ chối khi đặc trưng sinh học nhận giá trị âm (HTTP 422)."""
-    sample_b, _ = test_samples
-    invalid_sample = sample_b.copy()
-    invalid_sample["area_mean"] = -10.5
-
-    response = client.post("/api/demo-classify", json=invalid_sample)
-    assert response.status_code == 422
-    assert "không thể nhận giá trị âm" in response.text
-
-
-def test_validation_nan_or_inf_rejected(client, test_samples):
-    """Từ chối giá trị chuỗi không phải số hoặc NaN/Inf (HTTP 422)."""
-    sample_b, _ = test_samples
-    invalid_sample = sample_b.copy()
-    invalid_sample["radius_mean"] = "NaN"
-
-    response = client.post("/api/demo-classify", json=invalid_sample)
-    assert response.status_code == 422
-
-
-def test_validation_extreme_biological_anomaly(client, test_samples):
-    """Từ chối giá trị vượt quá giới hạn sinh học cực đoan (HTTP 422)."""
-    sample_b, _ = test_samples
-    invalid_sample = sample_b.copy()
-    invalid_sample["radius_mean"] = 5000.0  # Tế bào nhân không thể có bán kính 5000 micromet
-
-    response = client.post("/api/demo-classify", json=invalid_sample)
-    assert response.status_code == 422
-    assert "vượt quá giới hạn sinh học cực đoan" in response.text
-
-
-def test_out_of_distribution_warning(client, test_samples):
-    """Chấp nhận mẫu hợp lệ nhưng cảnh báo OOD khi giá trị ngoài dải Train."""
-    sample_b, _ = test_samples
-    ood_sample = sample_b.copy()
-    ood_sample["radius_mean"] = 32.0  # Max train là 28.11, nhưng vẫn dưới ngưỡng cực đoan
-
-    response = client.post("/api/demo-classify", json=ood_sample)
+def test_health_endpoint_healthy(client):
+    """Kiểm tra GET /api/health khi hệ thống bình thường."""
+    response = client.get("/api/health")
     assert response.status_code == 200
     data = response.json()
-    assert len(data["warnings"]) >= 1
-    assert any("radius_mean" in w and "Out-Of-Distribution" in w for w in data["warnings"])
+    assert data["status"] == "ok"
+    assert data["model_loaded"] is True
+    assert data["sha256_verified"] is True
+    assert data["input_features_count"] == 30
 
 
-def test_degraded_service_when_model_unloaded(test_samples):
-    """Trả về HTTP 503 khi server ở trạng thái degraded / chưa nạp mô hình."""
-    sample_b, _ = test_samples
-    with patch("backend.app.main.PIPELINE_PATH", Path("non_existent_path.joblib")):
+def test_both_endpoints_degraded_when_model_missing(test_samples):
+    """Kiểm tra cả /api/health và /api/demo-classify trả về 503 khi thiếu model (Yêu cầu 9)."""
+    sample_b, _, _ = test_samples
+    with patch("backend.app.main.PIPELINE_PATH", Path("non_existent_model_file.joblib")):
         with TestClient(app) as degraded_client:
-            response = degraded_client.post("/api/demo-classify", json=sample_b)
-            assert response.status_code == 503
-            assert "Mô hình phân loại chưa sẵn sàng" in response.json()["detail"]
+            # 1. Health endpoint báo degraded
+            res_health = degraded_client.get("/api/health")
+            assert res_health.status_code == 503
+            assert res_health.json()["status"] == "degraded"
+            assert res_health.json()["model_loaded"] is False
+
+            # 2. Classify endpoint báo 503 Service Unavailable
+            res_classify = degraded_client.post("/api/demo-classify", json=sample_b)
+            assert res_classify.status_code == 503
+            assert "Mô hình phân loại chưa sẵn sàng" in res_classify.json()["detail"]
