@@ -1,0 +1,189 @@
+{
+  "experiment_name": "EXP4_Feature_Importance_Stability",
+  "model_type": "RandomForestClassifier",
+  "model_parameters": {
+    "n_estimators": 100,
+    "max_depth": 8,
+    "min_samples_leaf": 1,
+    "max_features": 0.3
+  },
+  "seeds_evaluated": [
+    42,
+    123,
+    456,
+    789,
+    999
+  ],
+  "train_samples_count": 398,
+  "total_features_count": 30,
+  "top_10_features_summary": [
+    {
+      "feature_name": "perimeter_worst",
+      "mean_importance": 0.182134,
+      "std_importance": 0.04622,
+      "cv_pct": 25.38,
+      "mean_rank": 2.0,
+      "std_rank": 1.55,
+      "seed_importances": {
+        "seed_42": 0.096358,
+        "seed_123": 0.214042,
+        "seed_456": 0.213084,
+        "seed_789": 0.216887,
+        "seed_999": 0.170296
+      }
+    },
+    {
+      "feature_name": "radius_worst",
+      "mean_importance": 0.137026,
+      "std_importance": 0.036363,
+      "cv_pct": 26.54,
+      "mean_rank": 3.0,
+      "std_rank": 1.26,
+      "seed_importances": {
+        "seed_42": 0.134543,
+        "seed_123": 0.122502,
+        "seed_456": 0.09557,
+        "seed_789": 0.127742,
+        "seed_999": 0.204772
+      }
+    },
+    {
+      "feature_name": "area_worst",
+      "mean_importance": 0.135639,
+      "std_importance": 0.039363,
+      "cv_pct": 29.02,
+      "mean_rank": 2.8,
+      "std_rank": 1.47,
+      "seed_importances": {
+        "seed_42": 0.201608,
+        "seed_123": 0.123278,
+        "seed_456": 0.151603,
+        "seed_789": 0.117704,
+        "seed_999": 0.084004
+      }
+    },
+    {
+      "feature_name": "concave points_mean",
+      "mean_importance": 0.132843,
+      "std_importance": 0.024139,
+      "cv_pct": 18.17,
+      "mean_rank": 3.2,
+      "std_rank": 0.98,
+      "seed_importances": {
+        "seed_42": 0.15578,
+        "seed_123": 0.11248,
+        "seed_456": 0.110804,
+        "seed_789": 0.168045,
+        "seed_999": 0.117106
+      }
+    },
+    {
+      "feature_name": "concave points_worst",
+      "mean_importance": 0.117032,
+      "std_importance": 0.02728,
+      "cv_pct": 23.31,
+      "mean_rank": 4.0,
+      "std_rank": 0.89,
+      "seed_importances": {
+        "seed_42": 0.115849,
+        "seed_123": 0.110704,
+        "seed_456": 0.128325,
+        "seed_789": 0.07304,
+        "seed_999": 0.157239
+      }
+    },
+    {
+      "feature_name": "area_mean",
+      "mean_importance": 0.038054,
+      "std_importance": 0.014977,
+      "cv_pct": 39.36,
+      "mean_rank": 8.0,
+      "std_rank": 3.03,
+      "seed_importances": {
+        "seed_42": 0.037988,
+        "seed_123": 0.050585,
+        "seed_456": 0.036115,
+        "seed_789": 0.054069,
+        "seed_999": 0.011515
+      }
+    },
+    {
+      "feature_name": "perimeter_mean",
+      "mean_importance": 0.032434,
+      "std_importance": 0.00715,
+      "cv_pct": 22.04,
+      "mean_rank": 7.4,
+      "std_rank": 1.02,
+      "seed_importances": {
+        "seed_42": 0.044258,
+        "seed_123": 0.031565,
+        "seed_456": 0.026289,
+        "seed_789": 0.035759,
+        "seed_999": 0.024296
+      }
+    },
+    {
+      "feature_name": "radius_mean",
+      "mean_importance": 0.027267,
+      "std_importance": 0.015132,
+      "cv_pct": 55.49,
+      "mean_rank": 9.6,
+      "std_rank": 3.5,
+      "seed_importances": {
+        "seed_42": 0.008839,
+        "seed_123": 0.018052,
+        "seed_456": 0.037086,
+        "seed_789": 0.020928,
+        "seed_999": 0.051427
+      }
+    },
+    {
+      "feature_name": "concavity_mean",
+      "mean_importance": 0.026015,
+      "std_importance": 0.007388,
+      "cv_pct": 28.4,
+      "mean_rank": 8.6,
+      "std_rank": 1.36,
+      "seed_importances": {
+        "seed_42": 0.029314,
+        "seed_123": 0.037153,
+        "seed_456": 0.027963,
+        "seed_789": 0.01776,
+        "seed_999": 0.017888
+      }
+    },
+    {
+      "feature_name": "symmetry_worst",
+      "mean_importance": 0.019989,
+      "std_importance": 0.003939,
+      "cv_pct": 19.71,
+      "mean_rank": 10.4,
+      "std_rank": 1.36,
+      "seed_importances": {
+        "seed_42": 0.015114,
+        "seed_123": 0.025832,
+        "seed_456": 0.023259,
+        "seed_789": 0.017918,
+        "seed_999": 0.01782
+      }
+    }
+  ],
+  "decision_tree_comparison": {
+    "top_feature": "perimeter_worst",
+    "top_feature_importance": 0.7575,
+    "top_feature_std": 0.0,
+    "explanation": "Trong Decision Tree đơn lẻ, 1 đặc trưng duy nhất chiếm ~75.8% tổng importance do hiệu ứng lấn át ở nút gốc."
+  },
+  "collinearity_analysis": {
+    "group_size_dimensions": [
+      "perimeter_worst",
+      "radius_worst",
+      "area_worst"
+    ],
+    "group_cell_concavity": [
+      "concave points_mean",
+      "concave points_worst"
+    ],
+    "finding": "Random Forest phân bổ đều trọng số giữa các đặc trưng có tương quan cao (r > 0.95) nhờ kỹ thuật ngẫu nhiên hóa max_features."
+  }
+}
