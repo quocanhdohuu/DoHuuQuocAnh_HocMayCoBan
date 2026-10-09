@@ -46,6 +46,7 @@ logger = logging.getLogger("backend.app.main")
 PIPELINE_PATH = MODELS_DIR / "wdbc_pipeline.joblib"
 SCHEMA_PATH = MODELS_DIR / "feature_schema.json"
 METADATA_PATH = MODELS_DIR / "model_metadata.json"
+REPORTS_DIR = ROOT_DIR / "reports"
 
 # Cấu hình danh sách tên miền Frontend được phép gọi API (CORS)
 ALLOWED_ORIGINS = [
@@ -383,6 +384,78 @@ async def health_check_endpoint(response: Response) -> Dict[str, Any]:
         "startup_time": startup_time,
         "timestamp": datetime.now(timezone.utc).isoformat(),
         "error": load_error,
+    }
+
+
+@app.get(
+    "/api/reports/dashboard",
+    summary="Đọc dữ liệu tổng hợp các báo cáo thực nghiệm và đánh giá mô hình",
+    tags=["Reports"],
+    response_model=Dict[str, Any],
+)
+async def get_dashboard_reports_endpoint() -> Dict[str, Any]:
+    """
+    Endpoint chỉ đọc cung cấp dữ liệu báo cáo thực nghiệm đã được đóng băng:
+    - final_test: kết quả đánh giá trên tập Test và đối sánh 4 mô hình
+    - exp1_depth: kết quả khảo sát độ sâu cây Train vs CV
+    - exp4_stability: kết quả kiểm tra độ ổn định Feature Importance qua 5 seeds
+    - model_metadata: thẻ mô hình và siêu tham số đóng băng
+    Nếu tệp artifact bị thiếu, trả về None cho trường tương ứng thay vì bịa số liệu.
+    """
+    data = {}
+
+    # 1. Đọc final_test_evaluation.json
+    final_test_file = REPORTS_DIR / "final_test_evaluation.json"
+    if final_test_file.exists():
+        try:
+            with open(final_test_file, "r", encoding="utf-8") as f:
+                data["final_test"] = json.load(f)
+        except Exception as e:
+            logger.warning(f"Không thể đọc {final_test_file}: {e}")
+            data["final_test"] = None
+    else:
+        data["final_test"] = None
+
+    # 2. Đọc exp1_depth_results.json
+    exp1_file = REPORTS_DIR / "exp1_depth_results.json"
+    if exp1_file.exists():
+        try:
+            with open(exp1_file, "r", encoding="utf-8") as f:
+                data["exp1_depth"] = json.load(f)
+        except Exception as e:
+            logger.warning(f"Không thể đọc {exp1_file}: {e}")
+            data["exp1_depth"] = None
+    else:
+        data["exp1_depth"] = None
+
+    # 3. Đọc exp4_feature_stability_results.json
+    exp4_file = REPORTS_DIR / "exp4_feature_stability_results.json"
+    if exp4_file.exists():
+        try:
+            with open(exp4_file, "r", encoding="utf-8") as f:
+                data["exp4_stability"] = json.load(f)
+        except Exception as e:
+            logger.warning(f"Không thể đọc {exp4_file}: {e}")
+            data["exp4_stability"] = None
+    else:
+        data["exp4_stability"] = None
+
+    # 4. Đọc model_metadata
+    metadata_file = METADATA_PATH
+    if metadata_file.exists():
+        try:
+            with open(metadata_file, "r", encoding="utf-8") as f:
+                data["model_metadata"] = json.load(f)
+        except Exception as e:
+            logger.warning(f"Không thể đọc {metadata_file}: {e}")
+            data["model_metadata"] = None
+    else:
+        data["model_metadata"] = None
+
+    return {
+        "status": "success",
+        "data": data,
+        "timestamp": datetime.now(timezone.utc).isoformat(),
     }
 
 

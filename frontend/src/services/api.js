@@ -87,3 +87,32 @@ export async function classifySample(payload) {
     };
   }
 }
+
+/**
+ * Lấy toàn bộ dữ liệu báo cáo thực nghiệm đã được đóng băng từ GET /api/reports/dashboard.
+ * @returns {Promise<Object>}
+ */
+export async function getDashboardReports() {
+  try {
+    const response = await fetch(`${API_BASE_URL}/api/reports/dashboard`, {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+      },
+    });
+
+    const data = await response.json();
+    return {
+      ok: response.ok,
+      status: response.status,
+      data: data.data || null,
+    };
+  } catch (error) {
+    return {
+      ok: false,
+      status: 0,
+      data: null,
+      error: error.message,
+    };
+  }
+}
