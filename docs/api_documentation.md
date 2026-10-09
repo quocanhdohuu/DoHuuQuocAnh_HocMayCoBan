@@ -4,7 +4,7 @@
 ---
 
 ### 1. TỔNG QUAN HỆ THỐNG (SYSTEM OVERVIEW)
-Tài liệu này đặc tả toàn bộ giao diện lập trình ứng dụng (**Application Programming Interface - API**) của Backend FastAPI phục vụ bài toán phân loại khối u vú FNA (Fine Needle Aspirate) từ tập dữ liệu Wisconsin Diagnostic Breast Cancer (WDBC), thuộc khuôn khổ học phần **Học máy cơ bản** (Trường Đại học Thủy Lợi).
+Tài liệu này đặc tả toàn bộ giao diện lập trình ứng dụng (**Application Programming Interface - API**) của Backend FastAPI phục vụ bài toán phân loại khối u vú FNA (Fine Needle Aspirate) từ tập dữ liệu Wisconsin Diagnostic Breast Cancer (WDBC), thuộc khuôn khổ học phần **Học máy cơ bản** (Đại Học Công Nghệ Kỹ Thuật Hưng Yên).
 
 - **Kiến trúc dịch vụ**: Web API chuẩn **ASGI (Asynchronous Server Gateway Interface)** xây dựng bằng **FastAPI**, nạp mô hình học máy theo cơ chế **Lifespan Singleton** (nạp đúng 1 lần duy nhất khi khởi động vào bộ nhớ RAM).
 - **Mô hình phục vụ suy luận**: Scikit-Learn Pipeline (`StandardScaler` + `RandomForestClassifier`, 100 cây quyết định, `max_depth=8`, `max_features=0.3`, `random_state=42`) đã huấn luyện và đóng băng tham số.

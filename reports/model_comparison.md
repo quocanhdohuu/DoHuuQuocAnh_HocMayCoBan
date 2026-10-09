@@ -1,5 +1,5 @@
 # Báo Cáo Tổng Hợp và So Sánh Mô Hình Phân Loại Khối U Vú (WDBC)
-**Học phần**: Học máy cơ bản (12523W.1) - ĐH Thủy Lợi  
+**Học phần**: Học máy cơ bản (12523W.1) - Đại Học Công Nghệ Kỹ Thuật Hưng Yên  
 **Đề tài**: Project 16 - Minh họa phân loại khối u vú bằng cây và rừng  
 **Tác giả**: Đỗ Hữu Quốc Anh  
 **Thời điểm lập báo cáo**: 08/10/2026  

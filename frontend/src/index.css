@@ -1,0 +1,4 @@
+/* Nhập hệ thống styling thống nhất của dự án WDBC */
+@import './styles/variables.css';
+@import './styles/global.css';
+@import './styles/components.css';

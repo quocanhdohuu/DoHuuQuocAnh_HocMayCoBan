@@ -1,0 +1,421 @@
+/* Component Design System for WDBC Medical Platform */
+@import './variables.css';
+
+/* ==============================================================================
+   1. CLINICAL ALERT BANNER (Fixed or Top-Level Medical Disclaimer)
+   ============================================================================== */
+.clinical-alert-banner {
+  background: linear-gradient(90deg, #fff1f2 0%, #fffbeb 50%, #fff1f2 100%);
+  border-bottom: 1px solid var(--color-malignant-100);
+  color: var(--color-slate-800);
+  padding: 0.625rem 1.25rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  text-align: center;
+}
+
+.clinical-alert-banner strong {
+  color: var(--color-malignant-700);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  font-weight: 700;
+}
+
+/* ==============================================================================
+   2. APP HEADER & BRANDING
+   ============================================================================== */
+.app-header {
+  background: var(--bg-surface);
+  border-bottom: 1px solid var(--color-slate-200);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  box-shadow: var(--shadow-xs);
+}
+
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--header-height);
+}
+
+.brand-section {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  text-decoration: none;
+}
+
+.brand-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, var(--color-primary-600) 0%, var(--color-teal-600) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-white);
+  box-shadow: var(--shadow-sm);
+}
+
+.brand-text h1 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--color-slate-900);
+  line-height: 1.2;
+}
+
+.brand-subtitle {
+  font-size: 0.75rem;
+  color: var(--color-slate-500);
+  font-weight: 500;
+}
+
+/* System Status Badge */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 600;
+  border: 1px solid transparent;
+}
+
+.status-badge.online {
+  background-color: var(--color-benign-50);
+  color: var(--color-benign-700);
+  border-color: var(--color-benign-100);
+}
+
+.status-badge.degraded {
+  background-color: var(--color-warning-50);
+  color: var(--color-warning-700);
+  border-color: var(--color-warning-100);
+}
+
+.status-badge.offline {
+  background-color: var(--color-malignant-50);
+  color: var(--color-malignant-700);
+  border-color: var(--color-malignant-100);
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: currentColor;
+}
+
+.status-dot.pulsing {
+  animation: pulseGlow 2s infinite;
+}
+
+/* ==============================================================================
+   3. NAVIGATION TABS
+   ============================================================================== */
+.app-navigation {
+  background-color: var(--bg-surface);
+  border-bottom: 1px solid var(--color-slate-200);
+}
+
+.nav-container {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.nav-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.875rem 1.25rem;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--color-slate-600);
+  border-bottom: 2px solid transparent;
+  transition: all var(--transition-fast);
+}
+
+.nav-link:hover {
+  color: var(--color-primary-600);
+  background-color: var(--color-slate-50);
+}
+
+.nav-link.active {
+  color: var(--color-primary-600);
+  border-bottom-color: var(--color-primary-600);
+  background-color: var(--color-primary-50);
+}
+
+/* ==============================================================================
+   4. LAYOUT & MAIN CONTENT
+   ============================================================================== */
+.app-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+  padding-top: 2rem;
+  padding-bottom: 3.5rem;
+}
+
+.page-header {
+  margin-bottom: 2rem;
+}
+
+.page-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--color-slate-900);
+  margin-bottom: 0.35rem;
+}
+
+.page-description {
+  font-size: 0.95rem;
+  color: var(--color-slate-500);
+  max-width: 800px;
+}
+
+/* ==============================================================================
+   5. CARDS & CONTAINERS
+   ============================================================================== */
+.card {
+  background: var(--bg-surface);
+  border: 1px solid var(--color-slate-200);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+  margin-bottom: 1.5rem;
+}
+
+.card:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.card-header {
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid var(--color-slate-100);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.card-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--color-slate-900);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.card-body {
+  padding: 1.5rem;
+}
+
+.card-footer {
+  padding: 1rem 1.5rem;
+  border-top: 1px solid var(--color-slate-100);
+  background: var(--color-slate-50);
+}
+
+/* Placeholder State Box */
+.placeholder-box {
+  padding: 3rem 1.5rem;
+  text-align: center;
+  background: linear-gradient(180deg, var(--bg-surface) 0%, var(--color-slate-50) 100%);
+  border: 2px dashed var(--color-slate-200);
+  border-radius: var(--radius-lg);
+  margin: 1.5rem 0;
+}
+
+.placeholder-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--color-primary-50);
+  color: var(--color-primary-600);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.25rem auto;
+}
+
+.placeholder-box h3 {
+  font-size: 1.25rem;
+  color: var(--color-slate-800);
+  margin-bottom: 0.5rem;
+}
+
+.placeholder-box p {
+  color: var(--color-slate-500);
+  max-width: 540px;
+  margin: 0 auto;
+  font-size: 0.9rem;
+}
+
+/* ==============================================================================
+   6. BUTTONS
+   ============================================================================== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.25rem;
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  border: 1px solid transparent;
+  outline: none;
+}
+
+.btn-primary {
+  background-color: var(--color-primary-600);
+  color: var(--color-white);
+  box-shadow: var(--shadow-xs);
+}
+
+.btn-primary:hover {
+  background-color: var(--color-primary-700);
+  box-shadow: var(--shadow-sm);
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background-color: var(--color-slate-100);
+  color: var(--color-slate-700);
+}
+
+.btn-secondary:hover {
+  background-color: var(--color-slate-200);
+  color: var(--color-slate-900);
+}
+
+.btn-outline {
+  background-color: transparent;
+  border-color: var(--color-slate-300);
+  color: var(--color-slate-700);
+}
+
+.btn-outline:hover {
+  background-color: var(--color-slate-50);
+  border-color: var(--color-slate-400);
+}
+
+.btn-danger {
+  background-color: var(--color-malignant-600);
+  color: var(--color-white);
+}
+
+.btn-danger:hover {
+  background-color: var(--color-malignant-700);
+}
+
+/* ==============================================================================
+   7. BADGES & PILLS
+   ============================================================================== */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.25rem 0.625rem;
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.badge-benign {
+  background-color: var(--color-benign-50);
+  color: var(--color-benign-700);
+  border: 1px solid var(--color-benign-100);
+}
+
+.badge-malignant {
+  background-color: var(--color-malignant-50);
+  color: var(--color-malignant-700);
+  border: 1px solid var(--color-malignant-100);
+}
+
+.badge-primary {
+  background-color: var(--color-primary-50);
+  color: var(--color-primary-700);
+  border: 1px solid var(--color-primary-100);
+}
+
+/* ==============================================================================
+   8. FOOTER
+   ============================================================================== */
+.app-footer {
+  background-color: var(--bg-surface);
+  border-top: 1px solid var(--color-slate-200);
+  padding: 1.75rem 0;
+  font-size: 0.8125rem;
+  color: var(--color-slate-500);
+}
+
+.footer-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.footer-left {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.footer-links {
+  display: flex;
+  gap: 1.25rem;
+}
+
+.footer-links a {
+  color: var(--color-slate-500);
+}
+
+.footer-links a:hover {
+  color: var(--color-primary-600);
+}
+
+/* Responsive queries */
+@media (max-width: 768px) {
+  .header-container {
+    flex-direction: column;
+    height: auto;
+    padding: 1rem 0;
+    gap: 0.75rem;
+  }
+
+  .nav-container {
+    overflow-x: auto;
+    padding-bottom: 4px;
+  }
+
+  .footer-container {
+    flex-direction: column;
+    text-align: center;
+  }
+}

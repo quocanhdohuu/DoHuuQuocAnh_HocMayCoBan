@@ -11,7 +11,7 @@
 
 - **Tên mô hình**: `WDBC_RandomForest_Classifier_Pipeline`
 - **Tác giả phát triển**: Đỗ Hữu Quốc Anh
-- **Cơ sở đào tạo**: Trường Đại học Thủy Lợi (Bộ môn Trí tuệ Nhân tạo - Khoa CNTT)
+- **Cơ sở đào tạo**: Đại Học Công Nghệ Kỹ Thuật Hưng Yên (Bộ môn Trí tuệ Nhân tạo - Khoa CNTT)
 - **Kiến trúc mô hình**: Rừng ngẫu nhiên (Random Forest Classifier) kết hợp trong `sklearn.pipeline.Pipeline`.
 - **Framework & Thư viện**: Python 3.12, scikit-learn 1.9.1, numpy 2.x, pandas 2.x, joblib 1.4.x.
 - **Tệp đóng gói nhị phân**: `backend/models/wdbc_pipeline.joblib`
@@ -147,7 +147,7 @@ Mô hình yêu cầu đầu vào nghiêm ngặt gồm đúng **30 đặc trưng 
 
 ### 8.2. Tuyên Bố Miễn Trừ Trách Nhiệm Y Khoa (Clinical Disclaimer)
 > **TUYÊN BỐ MIỄN TRỪ TRÁCH NHIỆM Y TẾ**:  
-> Mô hình học máy này là một sản phẩm phần mềm học thuật được phát triển phục vụ mục đích nghiên cứu, học tập và minh họa giáo dục trong khuôn khổ học phần Học máy cơ bản tại Trường Đại học Thủy Lợi.  
+> Mô hình học máy này là một sản phẩm phần mềm học thuật được phát triển phục vụ mục đích nghiên cứu, học tập và minh họa giáo dục trong khuôn khổ học phần Học máy cơ bản tại Đại Học Công Nghệ Kỹ Thuật Hưng Yên.  
 > **HỆ THỐNG TUYỆT ĐỐI KHÔNG PHẢI LÀ MỘT THIẾT BỊ Y TẾ HOẶC HỆ THỐNG CHẨN ĐOÁN LÂM SÀNG CHÍNH THỨC**.  
 > Mọi kết quả dự đoán (xác suất, phân lớp, cảnh báo nguy cơ) chỉ mang tính chất tham khảo thực nghiệm, **HOÀN TOÀN KHÔNG CÓ GIÁ TRỊ THAY THẾ Ý KIẾN CHẨN ĐOÁN CỦA BÁC SĨ CHUYÊN KHOA UNG BƯỚU VÀ BÁC SĨ GIẢI PHẪU BỆNH HỌC**. Nhóm tác giả không chịu bất kỳ trách nhiệm pháp lý nào đối với các quyết định y tế phát sinh từ việc sử dụng phần mềm này.
 

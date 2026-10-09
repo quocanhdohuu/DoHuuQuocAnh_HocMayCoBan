@@ -6,7 +6,7 @@
 [![Frontend](https://img.shields.io/badge/Frontend-ReactJS-cyan.svg)](https://react.dev/)
 
 > **CẢNH BÁO PHI LÂM SÀNG (NON-CLINICAL DISCLAIMER):**  
-> Dự án này hoàn toàn phục vụ mục đích nghiên cứu học thuật trong khuôn khổ môn học **Học máy cơ bản** (Trường Đại học Thủy lợi / PGS.TS. Nguyễn Văn Hậu).  
+> Dự án này hoàn toàn phục vụ mục đích nghiên cứu học thuật trong khuôn khổ môn học **Học máy cơ bản** (Đại Học Công Nghệ Kỹ Thuật Hưng Yên / PGS.TS. Nguyễn Văn Hậu).  
 > **TUYỆT ĐỐI KHÔNG SỬ DỤNG CHO MỤC ĐÍCH CHẨN ĐOÁN Y TẾ LÂM SÀNG THỰC TẾ.** Không sử dụng dữ liệu bệnh nhân thực chưa kiểm duyệt.
 
 ---
