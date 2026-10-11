@@ -10,9 +10,7 @@ export default function Footer() {
           </span>
         </div>
         <div className="footer-links">
-          <span>Tác giả: <strong>Đỗ Hữu Quốc Anh</strong></span>
           <span>&bull;</span>
-          <span>Phiên bản: <strong>1.0.0 (FastAPI + React)</strong></span>
         </div>
       </div>
     </footer>
