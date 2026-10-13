@@ -120,7 +120,8 @@ def plot_feature_histograms(df_train: pd.DataFrame, key_features: list, save_pat
 
     for idx, feature in enumerate(key_features):
         ax = axes[idx]
-        for label, group in df_train.groupby(TARGET_COLUMN):
+        for label in [NEGATIVE_CLASS, POSITIVE_CLASS]:
+            group = df_train[df_train[TARGET_COLUMN] == label]
             sns.histplot(
                 group[feature],
                 kde=True,
@@ -158,6 +159,8 @@ def plot_feature_boxplots(df_train: pd.DataFrame, key_features: list, save_path:
             y=feature,
             hue=TARGET_COLUMN,
             palette=COLOR_PALETTE,
+            order=[NEGATIVE_CLASS, POSITIVE_CLASS],
+            hue_order=[NEGATIVE_CLASS, POSITIVE_CLASS],
             legend=False,
             ax=ax,
             width=0.4,
@@ -166,7 +169,7 @@ def plot_feature_boxplots(df_train: pd.DataFrame, key_features: list, save_path:
         )
         ax.set_title(f"Boxplot: {feature}", fontsize=12, fontweight="bold")
         ax.set_xticks([0, 1])
-        ax.set_xticklabels([LABEL_NAMES["B"], LABEL_NAMES["M"]], fontsize=10)
+        ax.set_xticklabels([LABEL_NAMES[NEGATIVE_CLASS], LABEL_NAMES[POSITIVE_CLASS]], fontsize=10)
         ax.set_xlabel("")
         ax.set_ylabel(feature, fontsize=10)
 
@@ -220,17 +223,33 @@ def plot_discriminative_features(df_train: pd.DataFrame, save_path: Path):
     feat_x = "concave points_worst"
     feat_y = "perimeter_worst"
 
-    g = sns.JointGrid(data=df_train, x=feat_x, y=feat_y, hue=TARGET_COLUMN, palette=COLOR_PALETTE, height=8, ratio=4)
+    g = sns.JointGrid(
+        data=df_train,
+        x=feat_x,
+        y=feat_y,
+        hue=TARGET_COLUMN,
+        palette=COLOR_PALETTE,
+        hue_order=[NEGATIVE_CLASS, POSITIVE_CLASS],
+        height=8,
+        ratio=4
+    )
     g.plot_joint(sns.scatterplot, s=55, alpha=0.8, edgecolor="#222", linewidth=0.7)
     g.plot_marginals(sns.kdeplot, fill=True, common_norm=False, alpha=0.45)
 
     g.ax_joint.set_xlabel(f"{feat_x} (Số lượng điểm lõm cực đại)", fontsize=12, fontweight="bold")
     g.ax_joint.set_ylabel(f"{feat_y} (Chu vi cực đại nhân tế bào - μm)", fontsize=12, fontweight="bold")
-    g.ax_joint.legend(title="Nhãn chẩn đoán", labels=[LABEL_NAMES["B"], LABEL_NAMES["M"]], loc="upper left", fontsize=10)
 
     # Thêm ngưỡng phân chia tiềm năng trực quan (minh họa cách Decision Tree cắt không gian)
     g.ax_joint.axvline(x=0.135, color="black", linestyle="--", linewidth=1.5, label="Ngưỡng phân chia gợi ý (x=0.135)")
     g.ax_joint.axhline(y=105.0, color="gray", linestyle=":", linewidth=1.5, label="Ngưỡng chu vi gợi ý (y=105.0)")
+
+    handles, labels = g.ax_joint.get_legend_handles_labels()
+    label_map = {
+        NEGATIVE_CLASS: LABEL_NAMES[NEGATIVE_CLASS],
+        POSITIVE_CLASS: LABEL_NAMES[POSITIVE_CLASS],
+    }
+    clean_labels = [label_map.get(l, l) for l in labels]
+    g.ax_joint.legend(handles=handles, labels=clean_labels, title="Nhãn chẩn đoán & Ranh giới", loc="upper left", fontsize=10)
 
     plt.suptitle("Không gian Phân tách giữa 2 Đặc trưng Cốt lõi: concave points_worst vs perimeter_worst", fontsize=13, y=1.02, fontweight="bold")
     plt.savefig(save_path, bbox_inches="tight", dpi=300)
